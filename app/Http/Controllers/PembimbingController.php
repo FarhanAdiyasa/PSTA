@@ -53,10 +53,10 @@ class PembimbingController extends Controller
                 'pbn_email' => $request->pbn_email,
                 'png_username' => $request->png_username,
             ]);
-
+            
             return redirect()->route('Pembimbing')->with('success', 'Data Berhasil Ditambah');
         } catch (\Illuminate\Database\QueryException $ex) {
-            return redirect()->route('Pembimbing')->with('error', 'Gagal menambahkan data. PBN ID sudah ada.');
+            return redirect()->route('Pembimbing')->with('error', $ex->getMessage());
         }
     }
 
@@ -80,8 +80,7 @@ class PembimbingController extends Controller
         $pengujiUsernames = mspebimbingpenguji::pluck('png_username', 'png_username');
         $data = mspebimbingpenguji::find($pbn_id);
         $title = 'Kategori penilaian/Edit';
-
-        return view('Dashboard.Pebimbing_pengguna.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames'));
+        return view('DashboardKoordinatorTA.Pembimbing.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames'));
     }
 
     public function updateDataPebimbingPengguna(Request $request, $pbn_id)
@@ -113,6 +112,6 @@ class PembimbingController extends Controller
         $data = mspebimbingpenguji::find($pbn_id);
         $data->delete();
 
-        return redirect()->route('Pembimbing')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('Pembimbing')->with('success', 'Data Berhasil Ditambah');
     }
 }

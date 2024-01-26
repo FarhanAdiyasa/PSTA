@@ -13,7 +13,7 @@
                     </h5>
 
                     <div class="card-body">
-                        <form action="/insertdata_pebinbing_pengguna" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('Pembimbing.Insert')}}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <?php

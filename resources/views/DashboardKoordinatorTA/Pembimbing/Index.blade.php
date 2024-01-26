@@ -3,6 +3,7 @@
 
 <body>
 <div class="container">
+
         <center>
             <span style="font-size: Larger; font-weight: bold;">Pebimbing</span>
         </center><br>
@@ -23,7 +24,9 @@
             {{ $message }}
         </div>
         @endif
-
+        @if (session('error'))
+        <div class="alert alert-warning">{{ session('error') }}</div>
+    @endif
         <table id="Pebimbing_penguji" class="table datable" width="100%">
             <thead>
                 <tr>
@@ -70,9 +73,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $('.delete-button').click(function () {
-            var pbn_id = $(this).attr('data-id');
-            var pbn_nama = $(this).attr('data-pbn_nama');
-
+            var pbn_id = $(this).data('id');
+            var pbn_nama = $(this).data('pbn_nama');
+    
             Swal.fire({
                 title: "Yakin?",
                 text: "Kamu akan menghapus data dengan Nama " + pbn_nama,
@@ -83,12 +86,30 @@
                 confirmButtonText: "Ya, Hapus!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/Pembimbing/Delete" + pbn_id + ""
-                    Swal.fire(
-                        "Terhapus!",
-                        "Data telah dihapus.",
-                        "success"
-                    );
+                    // Get CSRF token
+                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    
+                    $.ajax({
+                        url: "/Pembimbing/Delete/" + pbn_id,
+                        type: 'POST',
+                        data: {
+                            _token: csrfToken // Pass CSRF token with the request
+                        },
+                        success: function (response) {
+                            Swal.fire(
+                                "Terhapus!",
+                                "Data telah dihapus.",
+                                "success"
+                            ).then(() => {
+                                // Reload or update your page after successful deletion
+                                location.reload(); // Reload the page
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors here
+                            console.error(xhr.responseText);
+                        }
+                    });
                 }
             });
         });

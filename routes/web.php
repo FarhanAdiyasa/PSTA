@@ -67,11 +67,11 @@ Route::post('/updatedata/{mkp_id}', [mskategoripenilaianController::class, 'upda
 Route::get('/delete/{mkp_id}', [mskategoripenilaianController::class, 'delete'])->name('delete');
 
 Route::get('/Pembimbing', [PembimbingController::class, 'index'])->name('Pembimbing');
-Route::post('/Pembimbing/Create', [PembimbingController::class, 'Create'])->name('Pembimbing.Create'); // Fixed the route name
+Route::get('/Pembimbing/Create', [PembimbingController::class, 'Create'])->name('Pembimbing.Create'); // Fixed the route name
 Route::post('/Pembimbing/Insert', [PembimbingController::class, 'Insert'])->name('Pembimbing.Insert');
-Route::get('/Pembimbing/{pbn_id}', [PembimbingController::class, 'Edit'])->name('Pembimbing.Edit'); // Fixed the double slash
-Route::post('/Pembimbing/Update/{pbn_id}', [PembimbingController::class, 'Update'])->name('Pembimbing.Update');
-Route::get('/Pembimbing/Delete/{pbn_id}', [PembimbingController::class, 'Delete'])->name('Pembimbing.Delete');
+Route::get('/Pembimbing/Edit/{pbn_id}', [PembimbingController::class, 'Edit'])->name('Pembimbing.Edit'); // Fixed the double slash
+Route::post('/Pembimbing/Update/{pbn_id}', [PembimbingController::class, 'updateDataPebimbingPengguna'])->name('Pembimbing.Update');
+Route::post('/Pembimbing/Delete/{pbn_id}', [PembimbingController::class, 'Delete'])->name('Pembimbing.Delete');
 
 Route::get('/', [mspenggunaController::class, 'login'])->name('login'); 
 Route::post('/loginproses', [mspenggunaController::class, 'loginproses'])->name('loginproses'); 

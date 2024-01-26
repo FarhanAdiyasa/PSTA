@@ -19,6 +19,7 @@ class mspengguna extends Authenticatable
      */
     protected $table = 'sidangta_mspengguna';
     protected $primaryKey = 'png_username';
+    public $timestamps = false;
 
     protected $fillable = [
         'png_username',

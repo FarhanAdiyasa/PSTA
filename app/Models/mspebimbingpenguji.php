@@ -18,6 +18,7 @@ class mspebimbingpenguji extends Model
      */
     protected $table = 'sidangta_mspembimbingpenguji';
     protected $primaryKey = 'pbn_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'pbn_id',
