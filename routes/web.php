@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\mskategoripenilaianController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\mspenggunaController;
+use App\Http\Controllers\TrPendaftaranSidangTaController;
 use App\Models\mspebimbingpenguji;
 use Illuminate\Support\Facades\Route;
 
@@ -80,3 +81,22 @@ Route::post('/registeruser', [mspenggunaController::class, 'registeruser'])->nam
 Route::get('/Indexregister', [mspenggunaController::class, 'Index_register'])->name('Indexregister.Index_register'); 
 Route::get('/delete_Pengguna/{png_username}', [mspenggunaController::class, 'delete_pengguna'])->name('delete_Pengguna.delete_pengguna');
 
+
+
+Route::get('/Sidang', [TrPendaftaranSidangTaController::class, 'index'])->name('Sidang');
+Route::get('/Sidang/Daftar', [TrPendaftaranSidangTaController::class, 'Create'])->name('Sidang.Create'); // Fixed the route name
+Route::post('/Sidang/Daftar', [TrPendaftaranSidangTaController::class, 'Daftar'])->name('Sidang.Insert');
+Route::get('/Sidang/Complete/{id}', [TrPendaftaranSidangTaController::class, 'complete'])->name('Sidang.complete'); // Fixed the double slash
+Route::post('/Sidang/Complete/{id}', [TrPendaftaranSidangTaController::class, 'completeStore'])->name('Sidang.complete.store'); // Fixed the double slash
+Route::post('/Sidang/Update/{pbn_id}', [TrPendaftaranSidangTaController::class, 'updateDataPebimbingPengguna'])->name('Sidang.Update');
+Route::post('/Sidang/Delete/{pbn_id}', [TrPendaftaranSidangTaController::class, 'Delete'])->name('Sidang.Delete');
+
+
+
+Route::get('/SidangKoor', [TrPendaftaranSidangTaController::class, 'indexKoor'])->name('SidangKoor');
+Route::get('/SidangKoor/{id}', [TrPendaftaranSidangTaController::class, 'Setujui'])->name('SidangKoor.Setujui');
+Route::get('/SidangKoor/Setujui/{id}', [TrPendaftaranSidangTaController::class, 'disetujui'])->name('setujui');
+Route::get('/download/{file}', [TrPendaftaranSidangTaController::class, 'downloadTemplate'])->name('download');
+Route::get('/downloadAll/{id}', [TrPendaftaranSidangTaController::class, 'downloadAll'])->name('download.all');
+Route::get('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::class, 'verifikasi'])->name('Sidang.verifikasi'); 
+Route::post('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::class, 'verifikasiStore'])->name('Sidang.verifikasi.store'); 
