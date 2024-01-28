@@ -6,11 +6,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #0059AB;">
+                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
                         <strong class="text-white">Ubah Data Penguji pengguna</strong>
                     </h5>
                     <div class="card-body">
-                        <form action="{{route('Pembimbing.Update', $data->pbn_id)}}" method="POST" enctype="multipart/form-data" name="updatedata.pebinbing_pengguna">
+                        <form action="{{route('Penguji.Update', $data->pbn_id)}}" method="POST" enctype="multipart/form-data" name="updatedata.pebinbing_pengguna">
                             @csrf
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label" style="font-weight: bold;">ID </label>
@@ -50,9 +50,14 @@
                             <div class="mb-3">
                                 <label for="png_username" class="form-label" style="font-weight: bold;">Username<span style="color: red;">*</span></label>
                                 <select name="png_username" class="form-control" id="png_username" aria-describedby="emailHelp">
+                                    <option value="{{$selectedUsername}}" selected>
+                                        {{ $selectedUsername }}
+                                    </option>
                                 @foreach($usernames as $username)
-                                        <option value="{{$username->png_username}}">{{ $username->png_username }}</option>
-                                        @endforeach
+                                    <option value="{{$username->png_username}}" >
+                                        {{ $username->png_username }}
+                                    </option>
+                                @endforeach
                                 </select>
                                 @error('png_username')
                                     <span class="text-danger">Username tidak boleh kosong</span><br>

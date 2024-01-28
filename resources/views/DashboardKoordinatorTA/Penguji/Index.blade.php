@@ -57,10 +57,10 @@
                         <a href="/Penguji/Edit/{{ $row->pbn_id }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Penguji">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="#" class="btn btn-danger delete-button center" style="padding: 5px 5px; font-size: 10px;"
+                        <button class="btn btn-danger delete-button center" style="padding: 5px 5px; font-size: 10px;"
                             data-id="{{ $row->pbn_id }}" data-pbn_nama="{{ $row->pbn_nama }}">
                             <i class="fas fa-trash"></i>
-                        </a>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -75,7 +75,6 @@
         $('.delete-button').click(function () {
             var pbn_id = $(this).data('id');
             var pbn_nama = $(this).data('pbn_nama');
-    
             Swal.fire({
                 title: "Yakin?",
                 text: "Kamu akan menghapus data dengan Nama " + pbn_nama,
@@ -88,9 +87,9 @@
                 if (result.isConfirmed) {
                     // Get CSRF token
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
-    
+                    
                     $.ajax({
-                        url: "/Pembimbing/Delete/" + pbn_id,
+                        url: "/Penguji/Delete/" + pbn_id,
                         type: 'POST',
                         data: {
                             _token: csrfToken // Pass CSRF token with the request
@@ -107,7 +106,7 @@
                         },
                         error: function (xhr, status, error) {
                             // Handle errors here
-                            console.error(xhr.responseText);
+                            console.error(xhr);
                         }
                     });
                 }

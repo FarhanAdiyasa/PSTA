@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #0059AB;">
+                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
                         <strong class="text-white">Tambah Data Kategori Penilaian</strong>
                     </h5>
 
                     <div class="card-body">
-                        <form action="/insertdata" method="POST" enctype="multipart/form-data">
+                        <form action="/kategori_penilaian" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <?php
@@ -57,7 +57,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="mkp_bobot" class="form-label" style="font-weight: bold;">Bobot<span style="color: red;">*</span></label>
-                                <input type="number" name="mkp_bobot" value="" class="form-control" id="mkp_bobot" aria-describedby="emailHelp">
+                                <input type="number" step="any" name="mkp_bobot" value="" class="form-control" id="mkp_bobot" />
                                 @error('mkp_bobot')
                                 <span class="text-danger">Bobot Kategori penilaian tidak boleh kosong</span><br>
                                 @enderror
@@ -65,7 +65,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary" title="Submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary" id="submit" title="Submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -75,4 +75,38 @@
         </div>
     </div>
 </body>
+<script>
+    $('#mkp_bobot').on('input', function () {
+        var bobotValue = $(this).val();
+        
+        // Menghapus leading zeros
+        bobotValue = bobotValue.replace(/^0+/, '');
+
+        // Menghapus tanda titik
+        bobotValue = bobotValue.replace(/\,/g, '');
+
+        // Jika inputan hanya 0 atau kosong, nonaktifkan tombol submit
+        if (bobotValue === '0' || bobotValue === '') {
+            $('#submit').prop('disabled', true);
+        }
+        else if(parseFloat(bobotValue) <= -1) {
+            $(this).val('0.0');
+        }
+        else {
+            console.log(bobotValue);
+            if (bobotValue.includes(',')) {
+                bobotValue = bobotValue.replace(',', '.');
+            }
+
+            // Jika inputan lebih dari 1, set nilai ke 1.0
+            var floatValue = parseFloat(bobotValue);
+            if (!isNaN(floatValue) && floatValue > 1) {
+                $(this).val('1.0');
+            }
+
+            // Aktifkan tombol submit
+            $('#submit').prop('disabled', false);
+        }
+    });
+</script>
 @endsection

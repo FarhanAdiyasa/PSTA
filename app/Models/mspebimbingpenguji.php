@@ -27,6 +27,7 @@ class mspebimbingpenguji extends Model
         'pbn_jabatan',
         'pbn_email',
         'png_username',
+        'pbn_status'
 
     ];
 

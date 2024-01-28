@@ -8,13 +8,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #0059AB;">
+                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
                         <strong class="text-white">Tambah Data Pembimbing dan Penguji</strong>
                     </h5>
 
                     <div class="card-body">
-                        <form action="{{route('Pembimbing.Insert')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('Penguji.Insert')}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            
 
                             <?php
 
@@ -48,6 +49,7 @@
                             <div class="mb-3">
                                 <label for="pbn_id" class="form-label" style="font-weight: bold;">ID <span style="color: red;">*</span></label>
                                 <input type="text" name="pbn_id" value="{{ $pbn_id }}" class="form-control" id="pbn_id" aria-describedby="emailHelp" readonly>
+                                <input type="hidden" name="pbn_status" value="1" class="form-control" id="pbn_status">
                                 @error('pbn_id')
                                 <span class="text-danger">{{ $message }}</span><br>
                                 @enderror
@@ -97,6 +99,7 @@
                                     <span class="text-danger">Username tidak boleh kosong</span><br>
                                     @enderror
                                 </div>
+                                    
 
 
 

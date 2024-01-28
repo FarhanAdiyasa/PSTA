@@ -50,9 +50,14 @@
                             <div class="mb-3">
                                 <label for="png_username" class="form-label" style="font-weight: bold;">Username<span style="color: red;">*</span></label>
                                 <select name="png_username" class="form-control" id="png_username" aria-describedby="emailHelp">
+                                    <option value="{{$selectedUsername}}" selected>
+                                        {{ $selectedUsername }}
+                                    </option>
                                 @foreach($usernames as $username)
-                                        <option value="{{$username->png_username}}">{{ $username->png_username }}</option>
-                                        @endforeach
+                                    <option value="{{$username->png_username}}" >
+                                        {{ $username->png_username }}
+                                    </option>
+                                @endforeach
                                 </select>
                                 @error('png_username')
                                     <span class="text-danger">Username tidak boleh kosong</span><br>

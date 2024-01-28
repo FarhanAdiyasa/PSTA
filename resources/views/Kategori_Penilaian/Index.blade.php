@@ -11,7 +11,7 @@
         <div class="row">
         <div class="row mb-3">
             <div class="col-12 d-flex align-items-center">
-                <a href="Create" class="btn" style="background-color:#0059ab; color:white; font-size: 10px;">+Tambah Data</a>
+                <a href="kategori_penilaian/Create" class="btn" style="background-color:#0059ab; color:white; font-size: 10px;">+Tambah Data</a>
                 <div class="col-6 d-flex align-items-center ml-auto">
                 <form action="/kategori_penilaian" method="GET" class="d-flex">
                     <input type="search" name="search" class="form-control" placeholder="Cari Nama..." aria-label="Search" aria-describedby="basic-addon2">
@@ -46,7 +46,7 @@
                     <td class="align-middle text-center">{{ $row->mkp_nama }}</td>
                     <td class="align-middle text-center">{{ $row->mkp_bobot }}</td>
                     <td  class="align-middle text-center">
-                        <a href="/Edit/{{ $row->mkp_id }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;">
+                        <a href="/kategori_penilaian/Edit/{{ $row->mkp_id }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a href="#" class="btn btn-danger delete-button center" style="padding: 5px 5px; font-size: 10px;"
@@ -78,7 +78,7 @@
                 confirmButtonText: "Ya, Hapus!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/delete/" + mkp_id + ""
+                    window.location = "/kategori_penilaian/delete/" + mkp_id + ""
                     Swal.fire(
                         "Terhapus!",
                         "Data telah dihapus.",

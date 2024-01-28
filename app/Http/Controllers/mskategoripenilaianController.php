@@ -22,7 +22,9 @@ class mskategoripenilaianController extends Controller
     public function Create()
     {
         $title = 'kategori penilaian / Tambah';
+
         return view('kategori_penilaian.create', compact('title'));
+
     }
 
     public function insertdata(Request $request)
@@ -30,6 +32,7 @@ class mskategoripenilaianController extends Controller
        
         // Validasi input
         $request->validate([
+            'mkp_id' => 'required',
             'mkp_nama' => 'required',
             'mkp_bobot' => 'required',
         ]);

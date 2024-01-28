@@ -10,7 +10,7 @@
 
         <div class="row mb-3">
             <div class="col-6 d-flex align-items-center">
-                <a href="Pembimbing/Create" class="btn btn-primary" style="padding: 5px 5px; font-size: 13px;">+Tambah Pembimbing</a>
+                <a href="/Pembimbing/Create" class="btn btn-primary" style="padding: 5px 5px; font-size: 13px;">+Tambah Pembimbing</a>
             </div>
             <div class="col-6 d-flex align-items-center ml-auto">
                 <form action="/Pembimbing" method="GET" class="d-flex">

@@ -11,11 +11,13 @@ class PengujiController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $data = mspebimbingpenguji::where('pbn_id', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            $data = mspebimbingpenguji::where('pbn_id', 'LIKE', '%' . $request->search . '%')
+                                        ->where('pbn_status', 1)->paginate(5);
             $title = 'Cari... "' . $request->search . '"';
         } else {
             $penguji = mspengguna::where(['png_role' => 'Penguji'])->pluck('png_username');
-            $data = mspebimbingpenguji::whereIn('png_username', $penguji)->paginate(5);
+            $data = mspebimbingpenguji::whereIn('png_username', $penguji)
+                                    ->where('pbn_status', 1)->paginate(5);
             $title = 'Penguji';
         }
 
@@ -24,24 +26,27 @@ class PengujiController extends Controller
 
     public function create()
     {
-        $usernames = mspengguna::where('png_role', 'Penguji')->get();
+        
         $title = 'Penguji / Tambah';
-        $pengujiUsernames = mspebimbingpenguji::pluck('png_username', 'png_username');
+        $pengujiUsernames = mspebimbingpenguji::where('pbn_status', 1)->pluck('png_username', 'png_username');
+        $usernames = mspengguna::where('png_role', 'Penguji')
+                            ->whereNotIn('png_username', $pengujiUsernames)
+                            ->get();
         $pbnIds = mspebimbingpenguji::pluck('pbn_id', 'pbn_id');
 
-        return view('DashboardKoordinatorTA.Pembimbing.Create', compact('title', 'pengujiUsernames', 'usernames', 'pbnIds'));
+        return view('DashboardKoordinatorTA.Penguji.Create', compact('title', 'pengujiUsernames', 'usernames', 'pbnIds'));
     }
 
     public function insert(Request $request)
     {
-        $request->validate([
+        $params = $request->validate([
             'pbn_jenis' => 'required',
             'pbn_nama' => 'required',
             'pbn_jabatan' => 'required',
             'pbn_email' => 'required|email',
             'png_username' => 'required',
+            'pbn_status' => 'required'
         ]);
-
         $newPbnId = $this->generateUniqueAutomaticID();
 
         try {
@@ -52,6 +57,7 @@ class PengujiController extends Controller
                 'pbn_jabatan' => $request->pbn_jabatan,
                 'pbn_email' => $request->pbn_email,
                 'png_username' => $request->png_username,
+                'pbn_status' => $params['pbn_status']
             ]);
             
             return redirect()->route('Penguji')->with('success', 'Data Berhasil Ditambah');
@@ -76,11 +82,16 @@ class PengujiController extends Controller
 
     public function edit($pbn_id)
     {
-        $usernames = mspengguna::where('png_role', 'Penguji')->get();
-        $pengujiUsernames = mspebimbingpenguji::pluck('png_username', 'png_username');
+        $pengujiUsernames = mspebimbingpenguji::where('pbn_status',1)->pluck('png_username', 'png_username');
+        $usernames = mspengguna::where('png_role', 'Penguji')
+                            ->whereNotIn('png_username', $pengujiUsernames)
+                            ->get();
+        
         $data = mspebimbingpenguji::find($pbn_id);
-        $title = 'Kategori penilaian/Edit';
-        return view('DashboardKoordinatorTA.Penguji.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames'));
+        
+        $selectedUsername = mspengguna::where(['png_username' => $data->png_username])->pluck('png_username')->first();
+        $title = 'Penguji / Edit';
+        return view('DashboardKoordinatorTA.Penguji.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames', 'selectedUsername'));
     }
 
     public function updateDataPebimbingPengguna(Request $request, $pbn_id)
@@ -104,14 +115,25 @@ class PengujiController extends Controller
         $data = mspebimbingpenguji::find($pbn_id);
         $data->update($request->all());
 
-        return redirect()->route('Pembimbing')->with('success', 'Data Berhasil Diupdate');
+        return redirect()->route('Penguji')->with('success', 'Data Berhasil Diupdate');
     }
 
-    public function delete($pbn_id)
+    public function delete(Request $request, string $pbn_id)
     {
-        $data = mspebimbingpenguji::find($pbn_id);
-        $data->delete();
+        $request->validate([
+            '_token' => 'required'
+        ]);
 
-        return redirect()->route('Pembimbing')->with('success', 'Data Berhasil Ditambah');
+        $data = mspebimbingpenguji::find($pbn_id);
+
+
+        if (!$data) {
+            return redirect()->route('Penguji')->with('error', 'Data tidak ditemukan');
+        }
+
+        $data->pbn_status = 0;
+        $data->save();
+
+        return redirect()->route('Penguji')->with('success', 'Data Telah Dihapus');
     }
 }
