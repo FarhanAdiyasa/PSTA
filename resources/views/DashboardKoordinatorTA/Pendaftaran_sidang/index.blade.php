@@ -4,10 +4,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-3">
-            <a href="{{route('Sidang.Create')}}"><button class="btn btn-primary mt-3"><strong class="text-white">Klik Untuk Daftar Sidang</strong> </button></a>
-        </div>
-        <div class="col-9">
+        <div class="col-12">
             <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
                 <strong class="text-white">Sidang Tugas Akhir</strong>
             </h5>
@@ -16,11 +13,11 @@
   
 
     <div class="card-body">
-        @if($message = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            {{ $message }}
-        </div>
-        @endif
+        
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <table id="Pebimbing_penguji" class="table datable" width="100%">
         <thead>
             <tr>
@@ -38,7 +35,7 @@
                 @if ($row->pdft_statusverifikasidokumen == null)
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
-                    <td class="align-middle text-center">Anda Mengajukan Pendaftaran Sidang Pada {{ $row->pdft_tanggaldibuat}}</td>
+                    <td class="align-middle text-center">{{$row->pdft_ids}} Mengajukan Pendaftaran Sidang Pada {{ $row->pdft_tanggaldibuat}}</td>
                     <td class="align-middle text-center">Menunggu Persetujuan</td>
                     <td  class="align-middle text-center">
                         <a href="{{ route('SidangKoor.Setujui', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
@@ -49,21 +46,10 @@
                 @elseif($row->pdft_statusverifikasidokumen == "Disetujui" && $row->pdft_tanggalsidang == null)
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
-                    <td class="align-middle text-center">Pengajuan Pendaftaran Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
+                    <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
                     <td class="align-middle text-center">Menunggu Pelengkapan</td>
                     <td  class="align-middle text-center">
-                        <a href="{{route('Sidang.complete', ['id' => $row->pdft_id])}}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
-                            <i class="fa-solid fa-bars"></i>
-                        </a>
-                    </td>
-                </tr>
-                @elseif($row->pdft_statusverifikasidata == 'True')
-                <tr>
-                    <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
-                    <td class="align-middle text-center">Pengajuan Pendaftaran Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
-                    <td class="align-middle text-center">Menunggu Penilaian</td>
-                    <td  class="align-middle text-center">
-                        <a href="{{route('Sidang.verifikasi', ['id' => $row->pdft_id])}}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                        <a href="{{ route('SidangKoor.Setujui', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
                             <i class="fa-solid fa-bars"></i>
                         </a>
                     </td>

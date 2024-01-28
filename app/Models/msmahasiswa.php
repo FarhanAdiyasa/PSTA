@@ -11,5 +11,6 @@ class msmahasiswa extends Model
     protected $table = 'sidangta_msmahasiswa';
     protected $primaryKey = 'mhs_username';
     public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = ['mhs_username', 'mhs_password', 'mhs_nama'];
 }

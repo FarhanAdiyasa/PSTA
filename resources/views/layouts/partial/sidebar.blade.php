@@ -43,10 +43,12 @@
                 <i class='fa fa-pencil-alt fa-lg fa-pull-left'></i>Penilaian Sidang
             </a>
 
-            <a href='/DashboardKoordinatorTA/HasilSidang' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
-                <i class='fa fa-file-alt fa-lg fa-pull-left'></i>Hasil Sidang
+            <a href='{{route("Sidang")}}' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
+                <i class='fa fa-file-alt fa-lg fa-pull-left'></i>Sidang Mahasiswa
             </a>
-
+            <a href='{{route("SidangKoor")}}' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
+                <i class='fa fa-file-alt fa-lg fa-pull-left'></i>Sidang Koor
+            </a>
                 <div id='menu2' class='collapse' role='tabpanel'>
                 
                     <a href="dashboardaHasilsidang" class="list-group-item list-group-item-action " style="border-radius: 0px; border: none; padding-left: 47px; display: inherit;"><b>–&nbsp;&nbsp;</b>Hasil Sidang </a>
