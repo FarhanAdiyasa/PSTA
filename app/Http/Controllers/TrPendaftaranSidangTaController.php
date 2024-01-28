@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mspebimbingpenguji;
 use App\Models\mspengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\mspebimbingpenguji;
+use App\Models\mstahunajaran;
+use Illuminate\Support\Facades\DB;
 use App\Models\TrPendaftaranSidangTa;
 use Illuminate\Support\Facades\Storage;
     use ZipArchive;
@@ -38,9 +40,7 @@ class TrPendaftaranSidangTaController extends Controller
     {   
         $pdft = TrPendaftaranSidangTa::findorfail($id);
         $title = 'Pembimbing / Lengkapi';
-        $pengguna = mspengguna::where(['png_role'=>'Pembimbing'])->get();
-
-        return view('DashboardKoordinatorTA.Pendaftaran_Sidang.verifikasi', compact('title', 'pdft', 'pengguna'));
+        return view('DashboardKoordinatorTA.Pendaftaran_Sidang.verifikasi', compact('title', 'pdft'));
     }
     public function verifikasiStore(Request $request, $id)
     {   
@@ -111,10 +111,20 @@ class TrPendaftaranSidangTaController extends Controller
     {   
         $pdft = TrPendaftaranSidangTa::findorfail($id);
         $title = 'Pembimbing / Lengkapi';
-        $pembimbing = mspengguna::where(['png_role'=>'Pembimbing'])->get();
-        $penguji = mspengguna::where(['png_role'=>'Penguji'])->get();
+        $pembimbing =  DB::table('sidangta_mspembimbingpenguji')
+        ->join('sidangta_mspengguna', 'sidangta_mspembimbingpenguji.png_username', '=', 'sidangta_mspengguna.png_username')
+        ->where('sidangta_mspengguna.png_role', 'Pembimbing')
+        ->select('sidangta_mspengguna.png_username')
+        ->get();
 
-        return view('Dashboard_Mahasiswa.Pendaftaran_Sidang.complete', compact('title', 'pdft', 'penguji', 'pembimbing'));
+        $penguji = DB::table('sidangta_mspembimbingpenguji')
+        ->join('sidangta_mspengguna', 'sidangta_mspembimbingpenguji.png_username', '=', 'sidangta_mspengguna.png_username')
+        ->where('sidangta_mspengguna.png_role', 'Penguji')
+        ->select('sidangta_mspengguna.png_username')
+        ->get();
+        $tahun = mstahunajaran::get();
+
+        return view('Dashboard_Mahasiswa.Pendaftaran_Sidang.complete', compact('title', 'pdft', 'penguji', 'pembimbing', 'tahun'));
     }
     public function completeStore(Request $request, $id)
     {   
@@ -129,6 +139,7 @@ class TrPendaftaranSidangTaController extends Controller
             'pdft_jenissidang' => 'required',
             'pdft_pembimbing1' => 'required|string',
             'pdft_penguji1' => 'required|string',
+            'thn_id' => 'required|string',
             'pdft_pembimbing2' => 'nullable',
             'pdft_penguji2' => 'nullable',
             'pdft_penguji3' => 'nullable',
@@ -189,6 +200,7 @@ class TrPendaftaranSidangTaController extends Controller
         }
       
         $validatedData['pdft_tanggaldibuat'] = Carbon::now();
+        $validatedData['mhs_username'] = auth('mahasiswa')->user()->mhs_username;
         try {
             TrPendaftaranSidangTa::create($validatedData);
             return redirect()->route('Sidang')->with('success', 'Data successfully submitted.');

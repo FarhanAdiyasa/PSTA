@@ -14,16 +14,16 @@
         <hr class="black-bold-divider"><!-- Tambahkan tag <hr> di sini -->
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Username<span style="color: red;">*</span></label>
-            <input type="text" class="form-control border" name="png_username">
-            @error('png_username')
-                <span class="text-danger">Email tidak boleh kosong</span><br>
+            <input type="text" class="form-control border" name="username" required>
+            @error('username')
+                <span class="text-danger">Username tidak boleh kosong</span><br>
             @enderror
             
         </div>
         <div class="mb-2">
             <label for="exampleInputPassword1" class="form-label">Password<span style="color: red;">*</span></label>
-            <input type="password" class="form-control" name="png_password">
-            @error('png_password')
+            <input type="password" class="form-control" name="katasandi" required>
+            @error('katasandi')
                 <span class="text-danger">Password tidak boleh kosong</span><br>
             @enderror
             @if(session('error'))

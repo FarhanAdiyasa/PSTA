@@ -57,9 +57,15 @@ class LoginController extends Controller
         return view('dashboard');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect('/login');
+        if (Auth::guard('mahasiswa')->check()) {
+            Auth::guard('mahasiswa')->logout();
+        } elseif (Auth::guard('pengguna')->check()) {
+            Auth::guard('pengguna')->logout();
+        } 
+        Auth::guard('mahasiswa')->logout();
+        Auth::guard('pengguna')->logout();
+        return redirect()->route('login');
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\mspengguna;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use App\Models\msmahasiswa;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class mspenggunaController extends Controller
@@ -22,54 +24,40 @@ class mspenggunaController extends Controller
 
     public function loginproses(Request $request)
     {
-        // Validasi input
-        $validator = Validator::make($request->all(), [
-            'png_username' => 'required',
-            'png_password' => 'required',
-        ]);
-    
-        // Cek validasi
-        if ($validator->fails()) {
-            return redirect('login')->withErrors($validator)->withInput();
-        }
-    
-        $username = $request->input('png_username');
-        $password = $request->input('png_password');
-    
-        // Retrieve the user from the database based on the provided username
-        $user = mspengguna::where('png_username', $username)->first();
-    
-        // Check if the user exists and verify the password
-        if ($user && password_verify($password, $user->getOriginal('png_password'))) {
-            // Authentication successful, create a session and redirect to the dashboard
-            Session::put('username', $user->png_username);
-    
-            // Check if the user has the 'png_role' field in the model
-            if ($user->png_role) {
-                Session::put('png_role', $user->png_role);
-        
-                // Redirect based on user role
-                switch ($user->png_role) {
-                    case 'Mahasiswa':
-                        return redirect()->route('DashboardMahasiswa.index');
+        $mahasiswa = msmahasiswa::where('mhs_username', $request->username)->first();
+        if ($mahasiswa && Hash::check($request->katasandi, $mahasiswa->mhs_password)) {
+            $credentials = [
+                'mhs_username' => $request->username,
+                'password' => $request->katasandi,
+            ];
+            if (Auth::guard('mahasiswa')->attempt($credentials)) {
+                return redirect()->route('DashboardMahasiswa.index');
+            }
+        } 
+        $pengguna = mspengguna::where('png_username', $request->username)->first();
+        if ($pengguna && Hash::check($request->katasandi, $pengguna->png_password)) {
+            $credentials = [
+                'png_username' => $request->username,
+                'password' => $request->katasandi,
+            ];
+            if (Auth::guard('pengguna')->attempt($credentials)) {
+                switch ($pengguna->png_role) {
                     case 'Pembimbing':
                         return redirect()->route('DashboardPebimbing.index');
-                    case 'Kepala_Prodi':
+                    case 'Kepala Prodi':
                         return redirect()->route('DashboardKepalaProdi.index');
                     case 'Penguji':
                         return redirect()->route('DashboardPenguji.index');
                     case 'DAAA':
                         return redirect()->route('DashboardDAAA.index');
-                     case 'Koordinator_TA':
-                         return redirect()->route('dashboard.index');
-                    // Add more cases for other roles if needed
+                     case 'Koordinator TA':
+                         return redirect()->route('DashboardKoordinatorTA.index');
                     default:
                         return redirect('/dashboard');
-                }
+                } 
             }
-        }
+        } 
     
-        // Authentication failed
         return redirect('login')->with('error', 'Username dan Password salah');
     }
     public function register(Request $request)
@@ -112,8 +100,12 @@ class mspenggunaController extends Controller
     }
     public function logout()
     {
-        Auth::logout();
-        return view('login');
+        if (Auth::guard('mahasiswa')->check()) {
+            Auth::guard('mahasiswa')->logout();
+        } elseif (Auth::guard('pengguna')->check()) {
+            Auth::guard('pengguna')->logout();
+        } 
+        return redirect()->route('login');
     }
     
 }

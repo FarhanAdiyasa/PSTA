@@ -36,10 +36,12 @@
                                 <i class="fa fa-arrow-left"></i> Kembali
                             </a>
                             <a href="{{ route('download.all', ['id' => $pdft->pdft_id]) }}" class="btn btn-primary">Download All As Zip</a>
-                            
-                            @if ($pdft->pdft_statusverifikasidokumen != 'Disetujui')
+                            @if (!Auth::guard('mahasiswa')->check())
+                                @if ($pdft->pdft_statusverifikasidokumen != 'Disetujui')
                                 <a href="#" class="btn btn-primary mx-5" id="setujuiButton">Setujui</a>
+                                @endif
                             @endif
+                         
                           
                     </div>
                 </div>
