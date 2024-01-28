@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\msmahasiswa;
 use App\Models\mspengguna;
+use App\Models\msmahasiswa;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\TrPendaftaranSidangTa;
 
 class DatabaseSeeder extends Seeder
 {
@@ -87,5 +88,6 @@ class DatabaseSeeder extends Seeder
         foreach ($mahasiswaData as $data) {
             msmahasiswa::create($data);
         }
+
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mspebimbingpenguji;
 use App\Models\mspengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\mspebimbingpenguji;
+use Illuminate\Support\Facades\DB;
 use App\Models\TrPendaftaranSidangTa;
 use Illuminate\Support\Facades\Storage;
     use ZipArchive;
@@ -228,5 +229,11 @@ class TrPendaftaranSidangTaController extends Controller
     public function destroy(TrPendaftaranSidangTa $trPendaftaranSidangTa)
     {
         //
+    }
+
+    public function nilai(string $id) {
+        $dataPendaftaranSidang = TrPendaftaranSidangTa::where('pdft_id', $id)->first();
+        return
+        $dataPembimbing = DB::select();
     }
 }

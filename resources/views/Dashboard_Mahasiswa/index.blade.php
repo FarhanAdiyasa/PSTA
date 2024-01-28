@@ -1,4 +1,3 @@
-@extends('layouts.partial.Mahasiswa')
 @extends('layouts.layout')
 @section('konten')
 <body>

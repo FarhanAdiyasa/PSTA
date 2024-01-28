@@ -2,15 +2,17 @@
 @section('konten')
 
 <body>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <div class="container">
 
         <center>
-            <span style="font-size: Larger; font-weight: bold;">Pebimbing</span>
+            <span style="font-size: Larger; font-weight: bold;">Pembimbing</span>
         </center><br>
 
         <div class="row mb-3">
             <div class="col-6 d-flex align-items-center">
-                <a href="/Pembimbing/Create" class="btn btn-primary" style="padding: 5px 5px; font-size: 13px;">+Tambah Pembimbing</a>
+                <a href="/Pembimbing/Create" class="btn-lg" style="padding: 5px 5px; font-size: 13px; background-color: #1F6A00; color: white;">+Tambah Pembimbing</a>
             </div>
             <div class="col-6 d-flex align-items-center ml-auto">
                 <form action="/Pembimbing" method="GET" class="d-flex">
@@ -28,13 +30,13 @@
         <div class="alert alert-warning">{{ session('error') }}</div>
     @endif
         <table id="Pebimbing_penguji" class="table datable" width="100%">
-            <thead>
+            <thead style="background-color: #1F6A00; color: white;">
                 <tr>
                     <th class="align-middle text-center">No.</th>
                     <th class="align-middle text-center">ID </th>
                     <th class="align-middle text-center">Jenis</th>
                     <th class="align-middle text-center">Nama</th>
-                    <th class="align-middle text-center">jabatan</th>
+                    <th class="align-middle text-center">Jabatan</th>
                     <th class="align-middle text-center">Email</th>
                     <th class="align-middle text-center">Username</th>
                     <th class="align-middle text-center">Aksi</th>
@@ -113,6 +115,10 @@
                 }
             });
         });
+
+        $(document).ready( function () {
+            $('#Pebimbing_penguji').DataTable();
+        } );
     </script>
     
 </body>
