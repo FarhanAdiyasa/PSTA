@@ -60,7 +60,7 @@
                     <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
                     <td class="align-middle text-center">Menunggu Penilaian</td>
                     <td  class="align-middle text-center">
-                        <a href="{{ route('SidangKoor.Setujui', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                        <a href="{{ route('SidangKoor.undang', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
                             <i class="fa-solid fa-bars"></i>
                         </a>
                     </td>

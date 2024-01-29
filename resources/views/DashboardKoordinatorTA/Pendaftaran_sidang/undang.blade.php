@@ -174,109 +174,14 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <br>
                             <br>
-                            <div class="col-md-12 border p-3">
-                                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
-                                        <strong class="text-white">Penguji 1</strong>
-                                    </h5>
-                                   
-                                    <table id="Penilaian" class="table datable table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle text-center">No.</th>
-                                                <th class="align-middle text-center">Kategori Penilaian</th>
-                                                <th class="align-middle text-center">Nilai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tbody>
-                                                @php
-                                                    $no = 1;
-                                                @endphp
-                                                    @foreach ($penilaianPenguji1 as $item)
-                                                        <tr>
-                                                            <th class="align-middle text-center">{{$no}}</th>
-                                                            <th class="align-middle text-left">{{$item->mkp_nama}}</th>
-                                                            <th class="align-middle text-left">{{$item->dnk_nilai}}</th>
-                                                        </tr>
-                                                        @php
-                                                            $no++;
-                                                        @endphp
-                                                    @endforeach
-                                                    
-                                            </tbody>
-                                        </tbody>
-                                    </table>
-                            </div>    
-                            <br>
-                            <div class="col-md-12">
-                                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
-                                        <strong class="text-white">Penguji 2</strong>
-                                    </h5>
-                                    
-                                    <table id="Penilaian" class="table datable table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle text-center">No.</th>
-                                                <th class="align-middle text-center">Kategori Penilaian</th>
-                                                <th class="align-middle text-center">Nilai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tbody>
-                                                @php
-                                                    $no = 1;
-                                                @endphp
-                                                @foreach ($penilaianPenguji2 as $item)
-                                                    <tr>
-                                                        <th class="align-middle text-center">{{$no}}</th>
-                                                        <th class="align-middle text-center">{{$item->mkp_nama}}</th>
-                                                        <th class="align-middle text-center">{{$item->dnk_nilai}}</th>
-                                                    </tr>
-                                                @endforeach
-                                                @php
-                                                    $no++;
-                                                @endphp
-                                            </tbody>
-                                        </tbody>
-                                    </table>
-                            </div>    
-                            <br>
-                            <div class="col-md-12">
-                                    <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
-                                        <strong class="text-white">Penguji 3</strong>
-                                    </h5>
-                                    
-                                    <table id="Penilaian" class="table datable table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle text-center">No.</th>
-                                                <th class="align-middle text-center">Kategori Penilaian</th>
-                                                <th class="align-middle text-center">Nilai</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = 1;
-                                            @endphp
-                                            @foreach ($penilaianPenguji3 as $item)
-                                                <tr>
-                                                    <th class="align-middle text-center">{{$no}}</th>
-                                                    <th class="align-middle text-center">{{$item->mkp_nama}}</th>
-                                                    <th class="align-middle text-center">{{$item->dnk_nilai}}</th>
-                                                </tr>
-                                            @endforeach
-                                            @php
-                                                $no++;
-                                            @endphp
-                                        </tbody>
-                                    </table>
-                                    <button class="btn btn-primary">
-                                        Unduh Berita Acara Sidang
-                                    </button>
-                            </div> 
+                            @if($pdft->pdft_jenissidang)
+                                <div class="d-grid gap-2 d-md-block">
+                                    <button class="btn btn-primary" type="button">Unduh Undangan</button>
+                                    <button class="btn btn-primary" type="button">Form Penilaian</button>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
