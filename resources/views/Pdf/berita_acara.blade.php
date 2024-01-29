@@ -166,48 +166,227 @@
            Mahasiswa sebagai berikut:
         </p>
         <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Nama :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">NIM :</h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Judul Tugas Akhir :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <p class="s1" style="padding-left: 5pt; text-indent: 0pt; text-align: left">
+        <table  style="padding-left: 5pt; text-indent: 0pt; text-align: left">
+          <tbody>
+            <tr style="height:1.5rem">
+              <td>
+                <h2>
+                  Nama
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  {{$pdft->mahasiswa->mhs_nama}}
+              </p>
+              </td>
+            </tr>
+            <tr style="height:1.5rem">
+              <td>
+                <h2>
+                  NIM
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+              {{$pdft->mhs_username}}
+              </p>
+                
+              </td>
+            </tr>
+            <tr style="height:1.5rem;">
+              <td>
+                <h2 style="padding-right: 3rem">
+                  Judul Tugas Akhir
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  {{$pdft->pdft_judultugasakhir}}
+              </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
           Menyatakan bahwa mahasiswa tersebut telah melaksanakan
           <b>Sidang Tugas Akhir, </b>pada:
-        </p>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Hari, tanggal :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Waktu :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Lokasi :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: left">
-          Pembimbing :
-        </h2>
-        <p style="text-indent: 0pt; text-align: left"><br /></p>
-        <p
-          class="s1"
-          style="
-            padding-top: 7pt;
-            padding-left: 5pt;
-            text-indent: 0pt;
-            text-align: left;
-          "
-        >
+
+        <br>
+        <table  style="margin-top:1rem;padding-left: 5pt; text-indent: 0pt; text-align: left">
+          <tbody>
+            <tr style="height:1.5rem">
+              <td>
+                <h2>
+                  Hari, tanggal
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  {{$pdft->pdft_tanggalsidang}}
+              </p>
+              </td>
+            </tr>
+            <tr style="height:1.5rem">
+              <td>
+                <h2>
+                  Waktu
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  {{$pdft->pdft_waktu}} - Selesai
+              </p>
+              </td>
+            </tr>
+            <tr style="height:1.5rem;">
+              <td>
+                <h2 style="padding-right: 5rem">
+                  Lokasi
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  @if ($pdft->pdft_jenissidang == "Online")
+                      Online
+                  @else
+                      {{$pdft->pdft_tempatsidang1}}
+                  @endif
+              </p>
+              </td>
+            </tr>
+            <tr style="height:1.5rem;">
+              <td>
+                <h2 style="padding-right: 5rem">
+                  Pembimbing
+                </h2>
+              </td>
+              <td>
+                <h2>
+                  :
+                </h2>
+              </td>
+              <td>
+                <p
+                class="s1"
+                style="
+                  padding-top: 2pt;
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                "
+              >
+                  1. {{$pdft->pdft_pembimbing1}}
+              </p>
+                <br>
+                <p
+                class="s1"
+                style="
+                  padding-left: 10pt;
+                  text-indent: 0pt;
+                  line-height: 108%;
+                  text-align: left;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                  2. {{$pdft->pdft_pembimbing2}}
+            </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
           Dengan hasil penilaian sebagai berikut:
-        </p>
         <p style="text-indent: 0pt; text-align: left"><br /></p>
         <table
           style="border-collapse: collapse; margin-left: 5.27398pt"
@@ -342,6 +521,11 @@
               </p>
             </td>
           </tr>
+          @php
+              $total = 0;
+          @endphp
+          @for ($i = 0; $i < $penguji; $i++) 
+          
           <tr style="height: 25pt">
             <td
               style="
@@ -382,7 +566,7 @@
                 border-right-width: 1pt;
               "
             >
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: center;"><br />{{$result[$i]->pbn_nama}} </p>
             </td>
             <td
               style="
@@ -397,7 +581,7 @@
                 border-right-width: 1pt;
               "
             >
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: center"><br /> {{$result[$i]->total_nilai}}</p>
             </td>
             <td
               style="
@@ -422,7 +606,7 @@
                   text-align: center;
                 "
               >
-                1/3
+                1/{{$penguji}}
               </p>
             </td>
             <td
@@ -438,10 +622,16 @@
                 border-right-width: 1pt;
               "
             >
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: center"><br />
+                {{$result[$i]->total_nilai / $penguji}}
+                @php
+                     $total += $result[$i]->total_nilai / $penguji
+                @endphp
+              </p>
             </td>
           </tr>
-          <tr style="height: 22pt">
+         @endfor
+          {{-- <tr style="height: 22pt">
             <td
               style="
                 width: 71pt;
@@ -638,7 +828,7 @@
             >
               <p style="text-indent: 0pt; text-align: left"><br /></p>
             </td>
-          </tr>
+          </tr> --}}
           <tr style="height: 21pt">
             <td
               style="
@@ -680,7 +870,8 @@
                 border-right-width: 1pt;
               "
             >
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: center"><br />{{$total}}
+              </p>
             </td>
           </tr>
         </table>

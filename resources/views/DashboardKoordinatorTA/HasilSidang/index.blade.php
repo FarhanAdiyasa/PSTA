@@ -107,9 +107,7 @@
                                 <label for="thn_id" class="form-label" style="font-weight: bold;">Jenis<span style="color: red;">*</span></label>
                                 <select name="thn_id" class="form-control" id="thn_id" aria-describedby="emailHelp">
                                     <option value="" selected disabled>Pilih Tahun Ajaran</option>
-                                    @foreach ($tahun as $item)
-                                    <option value="{{$item->thn_id}}">{{$item->thn_tahunajaran}}</option>
-                                @endforeach
+                                    <option value="{{$pdft->thn_id}}">{{$pdft->thn_id}}</option>
                                  
                                 </select>
                                 @error('thn_id')
@@ -126,74 +124,47 @@
                                 @enderror
                             </div>
 
-                         <div class="row">
-                            <div class="col-6">
-                                <label for="pdft_penguji1" class="form-label" style="font-weight: bold;">Penguji 1<span style="color: red;">*</span></label>
-                                <select name="pdft_penguji1" class="form-control" id="pdft_penguji1">
-                                    <option value="">Pilih Penguji 1</option>
-                                    @foreach ($penguji as $item)
-                                        <option value="{{$item->png_username}}">{{$item->png_username}}</option>
-                                    @endforeach
-                                    </select>
-                                @error('pdft_penguji1')
-                                <span class="text-danger">Penguji 1 tidak boleh kosong</span><br>
-                                @enderror
-                            </div>
-                                <div class="col-6">
-                                    <label for="pdft_pembimbing1" class="form-label" style="font-weight: bold;">Pembimbing 1<span style="color: red;">*</span></label>
-                                    <select name="pdft_pembimbing1" class="form-control" id="pdft_pembimbing1">
-                                        <option value="">Pilih Pembimbing 1</option>
-                                    @foreach ($pembimbing as $item)
-                                        <option value="{{$item->png_username}}">{{$item->png_username}}</option>
-                                    @endforeach
-                                    </select>
-                                    @error('pdft_pembimbing1')
-                                    <span class="text-danger">Pembimbing 1 tidak boleh kosong</span><br>
-                                    @enderror
-                                </div>
-                             
-                            </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label for="pdft_penguji2" class="form-label" style="font-weight: bold;">Penguji 2<span style="color: red;">*</span></label>
-                                    <select name="pdft_penguji2" class="form-control" id="pdft_penguji2">
-                                        <option value="">Pilih Penguji 2</option>
-                                        @foreach ($penguji as $item)
-                                            <option value="{{$item->png_username}}">{{$item->png_username}}</option>
-                                        @endforeach
-                                        </select>
-                                    @error('pdft_penguji2')
-                                    <span class="text-danger">Waktu tidak boleh kosong</span><br>
-                                    @enderror
+                                    <label for="pdft_penguji1" class="form-label" style="font-weight: bold;">Penguji 1<span style="color: red;">*</span></label>
+                                    <select name="pdft_penguji1" class="form-control" id="pdft_penguji1">
+                                        <option value="{{$pdft->pdft_penguji1}}">{{$pdft->pdft_penguji1}}</option>
+                                </select>
                                 </div>
-                                <div class="col-6">
-                                    <label for="pdft_pembimbing2" class="form-label" style="font-weight: bold;">Pembimbing 2<span style="color: red;">*</span></label>
-                                    <select name="pdft_pembimbing2" class="form-control" id="pdft_pembimbing2">
-                                        <option value="">Pilih Pembimbing 2</option>
-                                        @foreach ($pembimbing as $item)
-                                            <option value="{{$item->png_username}}">{{$item->png_username}}</option>
-                                        @endforeach
-                                        </select>
-                                    @error('pdft_pembimbing2')
-                                    <span class="text-danger">Pembimbing 2 tidak boleh kosong</span><br>
-                                    @enderror
-                                </div>
-                              
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="pdft_penguji3" class="form-label" style="font-weight: bold;">Penguji 3<span style="color: red;">*</span></label>
-                                    <select name="pdft_penguji3" class="form-control" id="pdft_penguji3">
-                                        <option value="">Pilih Penguji 3</option>
-                                        @foreach ($penguji as $item)
-                                            <option value="{{$item->png_username}}">{{$item->png_username}}</option>
-                                        @endforeach
+                                    <div class="col-6">
+                                        <label for="pdft_pembimbing1" class="form-label" style="font-weight: bold;">Pembimbing 1<span style="color: red;">*</span></label>
+                                        <select name="pdft_pembimbing1" class="form-control" id="pdft_pembimbing1">
+                                            <option value="{{$pdft->pdft_pembimbing1}}">{{$pdft->pdft_pembimbing1}}</option>
                                     </select>
-                                    @error('pdft_penguji3')
-                                    <span class="text-danger">penguji 3 tidak boleh kosong</span><br>
-                                    @enderror
+                                    </div>
+                                 
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="pdft_penguji2" class="form-label" style="font-weight: bold;">Penguji 2<span style="color: red;">*</span></label>
+                                        <select name="pdft_penguji2" class="form-control" id="pdft_penguji2">
+                                            <option value="{{$pdft->pdft_penguji2}}">{{$pdft->pdft_penguji2}}</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="pdft_pembimbing2" class="form-label" style="font-weight: bold;">Pembimbing 2<span style="color: red;">*</span></label>
+                                        <select name="pdft_pembimbing2" class="form-control" id="pdft_pembimbing2">
+                                            <option value="{{$pdft->pdft_pembimbing2}}">{{$pdft->pdft_pembimbing2}}</option>
+                                    </select>
+                                    </div>
+                                  
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="pdft_penguji3" class="form-label" style="font-weight: bold;">Penguji 3<span style="color: red;">*</span></label>
+                                        <select name="pdft_penguji3" class="form-control" id="pdft_penguji3">
+                                                <option value="{{$pdft->pdft_penguji3}}">{{$pdft->pdft_penguji3}}</option>
+                                        </select>
+                                        @error('pdft_penguji3')
+                                        <span class="text-danger">penguji 3 tidak boleh kosong</span><br>
+                                        @enderror
+                                    </div>
+                                </div>
 
                             <button type="submit" class="btn btn-primary mt-4">Submit</button>
                         </form>

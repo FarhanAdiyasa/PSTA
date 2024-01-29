@@ -125,3 +125,7 @@ Route::get('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::clas
 Route::post('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::class, 'verifikasiStore'])->name('Sidang.verifikasi.store'); 
 
 Route::get('/SidangKoor/{id}/detail', [TrPendaftaranSidangTaController::class, 'dinilai'])->name('SidangKoor.dinilai');
+
+Route::get('/generate-pdf/{idTr}/{idUsn}', [TrPendaftaranSidangTaController::class, 'generatePdfNilai'])->name('generate.pdf'); 
+Route::get('/generate-pdf-ba/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfBap'])->name('generate.pdf.ba'); 
+Route::get('/generate-pdf-undangan/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfUndangan'])->name('generate.pdf.undangan'); 

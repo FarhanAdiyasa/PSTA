@@ -12,4 +12,10 @@ class dtlnilaikategori extends Model
     protected $primaryKey = 'dnk_id';
     public $incrementing = false;
     protected $fillable = ['dnk_nilai', 'mkp_id', 'mkp_nama', 'pdft_id', 'png_username'];
+    protected $with = ['mkp'];
+
+    public function mkp()
+    {
+        return $this->belongsTo(mskategoripenilaian::class, 'mkp_id', 'mkp_id');
+    }
 }

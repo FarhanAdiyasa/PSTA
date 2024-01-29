@@ -12,4 +12,9 @@ class mskategoripenilaian extends Model
     protected $primaryKey = 'mkp_id';
     public $incrementing = false;
     protected $fillable = ['mkp_id', 'mkp_nama', 'mkp_bobot'];
+
+    public function mkp()
+    {
+        return $this->hasMany(dtlnilaikategori::class, 'mkp_id', 'mkp_id');
+    }
 }

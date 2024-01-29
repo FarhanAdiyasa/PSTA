@@ -15,6 +15,10 @@ class msmahasiswa extends Model implements Authenticatable
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = ['mhs_username', 'mhs_password', 'mhs_nama'];
+    public function trSidang()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class);
+    }
 
     protected $hidden = [
         'mhs_password',

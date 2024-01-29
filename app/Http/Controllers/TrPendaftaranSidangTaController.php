@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dtlnilaikategori;
 use validation;
 use App\Models\mspengguna;
 use App\Models\msmahasiswa;
 use Illuminate\Http\Request;
 use App\Models\mstahunajaran;
 use Illuminate\Support\Carbon;
+use App\Models\dtlnilaikategori;
 use App\Models\mspebimbingpenguji;
 use Illuminate\Support\Facades\DB;
 use App\Models\mskategoripenilaian;
-use App\Models\TrPendaftaranSidangTa;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Models\TrPendaftaranSidangTa;
 use Illuminate\Validation\ValidationException;
-    use ZipArchive;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
+use iio\libmergepdf\Merger;
+use ZipArchive;
     
+
 
 class TrPendaftaranSidangTaController extends Controller
 {
@@ -42,6 +47,42 @@ class TrPendaftaranSidangTaController extends Controller
         $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $id])->first();
         return view('DashboardKoordinatorTA.Pendaftaran_Sidang.Setujui', compact('title', 'pdft'));
     }
+    public function generatePdfNilai($idTr, $idUsn)
+    {
+        $nilai = dtlnilaikategori::where(['pdft_id'=>$idTr, 'png_username'=>$idUsn])->get();
+        $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $idTr])->first();
+        $pdf = Pdf::loadView('Pdf.penilaian', compact(['nilai', 'pdft']));
+        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$idUsn.'.pdf');
+    }
+    public function generatePdfBap($idTr)
+    {
+        $result = DB::select('CALL sp_total_nilai(?)', array($idTr));
+        dd($result);
+        $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $idTr])->first();
+        $pdf = Pdf::loadView('Pdf.berita_acara', compact(['pdft']));
+        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$pdft->mhs_username.'.pdf');
+    }
+    
+    public function generatePdfUndangan($idTr)
+    {
+        $m = new Merger();
+        $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $idTr])->first();
+        $gr = mspebimbingpenguji::where(['png_username' => $pdft->pdft_pembimbing1])->first();
+        $pdf = Pdf::loadView('Pdf.undangan', compact(['pdft', 'gr']));
+        $m->addRaw($pdf->output());
+        $pdf2 = PDF::loadView('Pdf.undanganLandscape', compact(['pdft']))->setPaper('a4', 'landscape');
+        $nama_file = 'all.pdf';
+        $m->addRaw($pdf2->output());
+        return response($m->merge())
+                ->withHeaders([
+                    'Content-Type' => 'application/pdf',
+                    'Cache-Control' => 'no-store, no-cache',
+                    'Content-Disposition' => 'attachment; filename="'.$nama_file,
+                ]);
+       
+    }
+    
+    
     public function verifikasi($id)
     {   
         $pdft = TrPendaftaranSidangTa::findorfail($id);
@@ -249,10 +290,10 @@ class TrPendaftaranSidangTaController extends Controller
     }
 
     public function dinilai(string $id) {
-        $data = TrPendaftaranSidangTa::findorFail($id);
+        $pdft = TrPendaftaranSidangTa::findorFail($id);
         $title = 'Detail Penilaian';
-
-        return view('DashboardKoordinatorTA.HasilSidang.index', compact('title', 'data'));
+        $tahun = mstahunajaran::get();
+        return view('DashboardKoordinatorTA.HasilSidang.index', compact('title', 'pdft', 'tahun'));
     }
 
     public function detail(string $id) {

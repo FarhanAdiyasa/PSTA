@@ -13,4 +13,9 @@ class mstahunajaran extends Model
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = ['thn_id', 'thn_tahunajaran', 'thn_status'];
+
+    public function tr()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'thn_id', 'thn_id');
+    }
 }

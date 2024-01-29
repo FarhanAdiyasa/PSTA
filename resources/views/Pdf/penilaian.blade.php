@@ -138,6 +138,9 @@
                     <td>
                         <p class="s1">:</p>
                     </td>
+                    <td>
+                        <p class="s1">{{$pdft->mahasiswa->mhs_nama}}</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -145,6 +148,9 @@
                     </td>
                     <td>
                         <p class="s1">:</p>
+                    </td>
+                    <td>
+                        <p class="s1">{{$pdft->mhs_username}}</p>
                     </td>
                 </tr>
                 <tr>
@@ -154,6 +160,9 @@
                     <td>
                         <p class="s1">:</p>
                     </td>
+                    <td>
+                      <p class="s1">{{$pdft->pdft_perusahaan}}</p>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -162,6 +171,9 @@
                     <td>
                         <p class="s1">:</p>
                     </td>
+                    <td>
+                      <p class="s1">{{$pdft->pdft_tanggalsidang}}</p>
+                  </td>
                 </tr>
             </tbody>
         </table>
@@ -277,6 +289,10 @@
                 </p>
               </td>
             </tr>
+            @php
+            $total =0;
+            @endphp
+            @foreach ($nilai as $item)
             <tr style="height: 36pt">
               <td
                 style="
@@ -295,12 +311,12 @@
                   class="s3"
                   style="
                     padding-top: 10pt;
-                    padding-left: 5pt;
+                    padding-left: pt;
                     text-indent: 0pt;
                     text-align: left;
                   "
                 >
-                  Penguasaan isi tugas akhir
+                  {{$item->mkp_nama}}
                 </p>
               </td>
               <td
@@ -316,17 +332,8 @@
                   border-right-width: 1pt;
                 "
               >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 22pt;
-                    padding-right: 22pt;
-                    text-indent: 0pt;
-                    text-align: center;
-                  "
-                >
-                  40%
+              <p style="text-indent: 0pt; text-align: left; margin-left:2rem;margin-bottom:1rem;font-size:1.2rem"><br />  
+                {{$item->mkp->mkp_bobot * 100}} %
                 </p>
               </td>
               <td
@@ -342,7 +349,9 @@
                   border-right-width: 1pt;
                 "
               >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: left; margin-left:2rem;margin-bottom:1rem;font-size:1.2rem"><br />
+                {{$item->dnk_nilai}}
+              </p>
               </td>
               <td
                 style="
@@ -357,10 +366,16 @@
                   border-right-width: 1pt;
                 "
               >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              <p style="text-indent: 0pt; text-align: left; margin-left:2rem;margin-bottom:1rem;font-size:1.2rem"><br />
+                 {{$item->dnk_nilai * $item->mkp->mkp_bobot}}
+                 @php
+                     $total += $item->dnk_nilai * $item->mkp->mkp_bobot;
+                 @endphp
+                </p>
               </td>
             </tr>
-            <tr style="height: 36pt">
+            @endforeach
+            <tr style="height: 23pt">
               <td
                 style="
                   width: 234pt;
@@ -372,285 +387,49 @@
                   border-bottom-width: 1pt;
                   border-right-style: solid;
                   border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 5pt;
-                    text-indent: 0pt;
-                    text-align: left;
-                  "
-                >
-                  Relevansi jawaban dengan pertanyaan
-                </p>
-              </td>
-              <td
-                style="
-                  width: 76pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 22pt;
-                    padding-right: 22pt;
-                    text-indent: 0pt;
-                    text-align: center;
-                  "
-                >
-                  30%
-                </p>
-              </td>
-              <td
-                style="
-                  width: 72pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-              <td
-                style="
-                  width: 69pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-            </tr>
-            <tr style="height: 36pt">
-              <td
-                style="
-                  width: 234pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 5pt;
-                    text-indent: 0pt;
-                    text-align: left;
-                  "
-                >
-                  Sistematika penulisan
-                </p>
-              </td>
-              <td
-                style="
-                  width: 76pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 22pt;
-                    padding-right: 22pt;
-                    text-indent: 0pt;
-                    text-align: center;
-                  "
-                >
-                  20%
-                </p>
-              </td>
-              <td
-                style="
-                  width: 72pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-              <td
-                style="
-                  width: 69pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-            </tr>
-            <tr style="height: 36pt">
-              <td
-                style="
-                  width: 234pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 5pt;
-                    text-indent: 0pt;
-                    text-align: left;
-                  "
-                >
-                  Penguasaan ilmu-ilmu yang relevan
-                </p>
-              </td>
-              <td
-                style="
-                  width: 76pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p
-                  class="s3"
-                  style="
-                    padding-top: 10pt;
-                    padding-left: 22pt;
-                    padding-right: 22pt;
-                    text-indent: 0pt;
-                    text-align: center;
-                  "
-                >
-                  10%
-                </p>
-              </td>
-              <td
-                style="
-                  width: 72pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-              <td
-                style="
-                  width: 69pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
-              </td>
-            </tr>
-            <tr style="height: 37pt">
-              <td
-                style="
-                  width: 382pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
+                 
                 "
                 colspan="3"
               >
-                <p
-                  class="s2"
-                  style="
-                    padding-top: 11pt;
-                    padding-left: 176pt;
-                    padding-right: 176pt;
-                    text-indent: 0pt;
-                    text-align: center;
-                  "
-                >
-                  Total
-                </p>
+              <p
+              class="s2"
+              style="
+                padding-top: 16pt;
+                padding-left: 20pt;
+                text-indent: 0pt;
+                text-align: left;
+                height:2rem;
+                 text-align: center;
+              "
+            >
+              Total
+            </p>
               </td>
               <td
-                style="
-                  width: 69pt;
-                  border-top-style: solid;
-                  border-top-width: 1pt;
-                  border-left-style: solid;
-                  border-left-width: 1pt;
-                  border-bottom-style: solid;
-                  border-bottom-width: 1pt;
-                  border-right-style: solid;
-                  border-right-width: 1pt;
-                "
-              >
-                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              style="
+                border-top-style: solid;
+                border-top-width: 1pt;
+                border-left-style: solid;
+                border-left-width: 1pt;
+                border-bottom-style: solid;
+                border-bottom-width: 1pt;
+                border-right-style: solid;
+                border-right-width: 1pt;
+              "
+            >
+            <p
+            class="s2"
+            style="
+              padding-top: 13pt;
+              padding-right:0.2rem;
+              text-indent: 0pt;
+              text-align: left;
+              height:3rem;
+              text-align: center;
+            "
+          >
+            {{$total}}
+          </p>
               </td>
             </tr>
           </table>

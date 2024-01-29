@@ -30,7 +30,26 @@ class mspebimbingpenguji extends Model
         'pbn_status'
 
     ];
-
+    public function pdft()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'png_username', 'pdft_pembimbing1');
+    }
+    public function pdft2()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'png_username', 'pdft_pembimbing2');
+    }
+    public function pdft3()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'png_username', 'pdft_penguji1');
+    }
+    public function pdft4()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'png_username', 'pdft_penguji2');
+    }
+    public function pdft5()
+    {
+        return $this->hasMany(TrPendaftaranSidangTa::class, 'png_username', 'pdft_penguji3');
+    }
    
 
     /**

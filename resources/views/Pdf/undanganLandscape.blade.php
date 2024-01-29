@@ -52,7 +52,7 @@
     </style>
   </head>
   <body>
-    <div class="container" style="margin-left: 2rem">
+    <div class="container" style="margin-left: 2rem; margin-top:3rem;">
       <p style="text-indent: 0pt; text-align: left; marign-bottom:1rem;">
         <span 
           ><table cellspacing="0" cellpadding="0" style="margin-left:4rem;">
@@ -71,7 +71,8 @@
           text-align: left;
         "
       >
-        Jadwal Sidang Tugas Akhir TPM 3 Politeknik Astra
+        Jadwal Sidang Tugas Akhir TPM 3 <br>
+        Politeknik Astra
       </h1>
       <p style="text-indent: 0pt; text-align: left"><br /></p>
       <table
@@ -279,6 +280,27 @@
           </td>
           <td
             style="
+              width: 68pt;
+              border-top-style: solid;
+              border-top-width: 1pt;
+              border-left-style: solid;
+              border-left-width: 1pt;
+              border-bottom-style: solid;
+              border-bottom-width: 1pt;
+              border-right-style: solid;
+              border-right-width: 1pt;
+            "
+          >
+            <p style="text-indent: 0pt; text-align: left"><br /></p>
+            <p
+              class="s1"
+              style="padding-left: 5pt; text-indent: 0pt; text-align: left"
+            >
+              PEMBIMBING 2
+            </p>
+          </td>
+          <td
+            style="
               width: 55pt;
               border-top-style: solid;
               border-top-width: 1pt;
@@ -386,9 +408,9 @@
           >
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
-              class="s2"
-              style="padding-left: 15pt; text-indent: 0pt; text-align: left"
-            >
+            class="s2"
+            style="text-align: center; text-justify: justify;"
+          >
               Selasa
             </p>
           </td>
@@ -406,14 +428,13 @@
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
               class="s2"
-              style="
-                padding-left: 10pt;
-                padding-right: 8pt;
-                text-indent: 0pt;
-                text-align: center;
-              "
+              style="text-align: center; text-justify: justify;"
             >
-              Kampus AstraTech (Ruang CA223)
+            @if ($pdft->pdft_jenissidang == "Online")
+            Online
+        @else
+            {{$pdft->pdft_tempatsidang1}}
+        @endif
             </p>
           </td>
           <td
@@ -458,6 +479,19 @@
           <td
             style="
               width: 55pt;
+              border-top-style: solid;
+              border-top-width: 1pt;
+              border-left-style: solid;
+              border-left-width: 1pt;
+              border-right-style: solid;
+              border-right-width: 1pt;
+            "
+          >
+            <p style="text-indent: 0pt; text-align: left"><br /></p>
+          </td>
+          <td
+            style="
+              width: 51pt;
               border-top-style: solid;
               border-top-width: 1pt;
               border-left-style: solid;
@@ -518,14 +552,9 @@
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
               class="s2"
-              style="
-                padding-top: 7pt;
-                padding-left: 12pt;
-                text-indent: 1pt;
-                text-align: left;
-              "
+              style="text-align: center; text-justify: justify;"
             >
-              Muhammad Rizqi Tsaniy
+            {{$pdft->mahasiswa->mhs_nama}}
             </p>
           </td>
           <td
@@ -543,9 +572,9 @@
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
               class="s2"
-              style="padding-left: 7pt; text-indent: 0pt; text-align: left"
+              style="text-align: center; text-justify: justify;"
             >
-              0220200032
+            {{$pdft->mhs_username}}
             </p>
           </td>
           <td
@@ -562,17 +591,9 @@
           >
             <p
               class="s2"
-              style="
-                padding-top: 3pt;
-                padding-left: 5pt;
-                padding-right: 4pt;
-                text-indent: 0pt;
-                text-align: justify;
-              "
+              style="text-align: center; text-justify: justify;"
             >
-              Analisis Pengaruh Pengguanaan Baja Siku dan Baja Hollow Terhadap
-              Daya Tahan Frame Rest Crane Grabber dengan Metode Finite Element
-              Analysis
+            {{$pdft->pdft_judultugasakhir}}
             </p>
           </td>
           <td
@@ -590,40 +611,11 @@
           </td>
           <td
             style="
-              width: 51pt;
-              border-left-style: solid;
-              border-left-width: 1pt;
               border-bottom-style: solid;
               border-bottom-width: 1pt;
-              border-right-style: solid;
-              border-right-width: 1pt;
             "
             rowspan="2"
           >
-            <p style="text-indent: 0pt; text-align: left"><br /></p>
-            <p
-              class="s2"
-              style="
-                padding-top: 5pt;
-                padding-left: 5pt;
-                padding-right: 4pt;
-                text-indent: 0pt;
-                text-align: center;
-              "
-            >
-              Jl. Gaharu F-3, Cibatu, Cikarang Selatan, Kab.
-            </p>
-            <p
-              class="s2"
-              style="
-                padding-left: 11pt;
-                padding-right: 9pt;
-                text-indent: 0pt;
-                text-align: center;
-              "
-            >
-              Bekasi, Indonesia
-            </p>
           </td>
           <td
             style="
@@ -642,7 +634,7 @@
               class="s2"
               style="padding-left: 12pt; text-indent: 0pt; text-align: left"
             >
-              14.00
+            {{$pdft->pdft_waktu}}
             </p>
           </td>
           <td
@@ -660,15 +652,9 @@
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
               class="s2"
-              style="
-                padding-top: 7pt;
-                padding-left: 18pt;
-                padding-right: 9pt;
-                text-indent: -8pt;
-                text-align: left;
-              "
+              style="text-align: center; text-justify: justify;"
             >
-              Heri Sudarmaji, S.T., M.T.
+            {{$pdft->pbg->pbn_nama}}
             </p>
           </td>
           <td
@@ -685,15 +671,12 @@
           >
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
-              class="s2"
-              style="
-                padding-left: 10pt;
-                padding-right: 9pt;
-                text-indent: 1pt;
-                text-align: center;
-              "
-            >
-              Aditya Bramantyo Wicaksono S.T
+            class="s2"
+            style="text-align: center; text-justify: justify;"
+          >
+          @if($pdft->pdft_pembimbing2)
+            {{$pdft->pbg2->pbn_nama}}
+            @endif
             </p>
           </td>
           <td
@@ -710,10 +693,10 @@
           >
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
-              class="s2"
-              style="padding-left: 13pt; text-indent: 3pt; text-align: left"
-            >
-              Agung Kaswadi, S.T.,M.T
+            class="s2"
+            style="text-align: center; text-justify: justify;"
+          >
+            {{$pdft->pnj->pbn_nama}}
             </p>
           </td>
           <td
@@ -738,7 +721,36 @@
                 text-align: center;
               "
             >
-              Aditya Bramantyo Wicaksono, S.T
+            @if($pdft->pdft_penguji2)
+            {{$pdft->pnj2->pbn_nama}}
+            @endif
+            </p>
+          </td>
+          <td
+            style="
+              width: 51pt;
+              border-left-style: solid;
+              border-left-width: 1pt;
+              border-bottom-style: solid;
+              border-bottom-width: 1pt;
+              border-right-style: solid;
+              border-right-width: 1pt;
+            "
+            rowspan="2"
+          >
+            <p style="text-indent: 0pt; text-align: left"><br /></p>
+            <p
+              class="s2"
+              style="
+                padding-left: 7pt;
+                padding-right: 6pt;
+                text-indent: 0pt;
+                text-align: center;
+              "
+            >
+            @if($pdft->pdft_penguji3)
+            {{$pdft->pnj3->pbn_nama}}
+            @endif
             </p>
           </td>
         </tr>
@@ -758,15 +770,9 @@
           >
             <p style="text-indent: 0pt; text-align: left"><br /></p>
             <p
-              class="s2"
-              style="
-                padding-left: 7pt;
-                padding-right: 6pt;
-                text-indent: 0pt;
-                line-height: 9pt;
-                text-align: center;
-              "
-            >
+            class="s2"
+            style="text-align: center; text-justify: justify;"
+          >
               22 Agustus
             </p>
             <p

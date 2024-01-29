@@ -210,9 +210,14 @@
                 <strong class="text-white">Penguji 1</strong>
             </h5>
             @if($penilaianPenguji1 != null) 
-                <button class="btn btn-primary">
-                    Unduh Laporan
-                </button> 
+           @php
+              $cth =  $penilaianPenguji1->first();
+           @endphp
+           <a href="{{route('generate.pdf', ['idTr'=>$cth->pdft_id, 'idUsn'=>$cth->png_username])}}">
+               <button class="btn btn-primary" id="{{$cth->pdft_id}}">
+                   Unduh Laporan
+               </button> 
+           </a>
             @endif
             <table id="Penilaian" class="table datable table-bordered" width="100%">
                 <thead>
@@ -248,9 +253,11 @@
                 <strong class="text-white">Penguji 2</strong>
             </h5>
             @if($penilaianPenguji2 != null) 
+            <a href="">
                 <button class="btn btn-primary">
                     Unduh Laporan
                 </button> 
+            </a>
             @endif
             <table id="Penilaian" class="table datable table-bordered" width="100%">
                 <thead>
@@ -313,9 +320,12 @@
                     @endphp
                 </tbody>
             </table>
-            <button class="btn btn-primary">
-                Unduh Berita Acara Sidang
-            </button>
+            <a href="{{route('generate.pdf.ba', ['idTr'=>$pdft->pdft_id])}}">
+                <button class="btn btn-primary">
+                    Unduh Berita Acara Sidang
+                </button>
+            </a>
+           
     </div> 
         
 </div>
