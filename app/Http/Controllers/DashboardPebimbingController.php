@@ -14,16 +14,7 @@ class DashboardPebimbingController extends Controller
     public function index()
     {
         $title = 'Dashboard Pebimbing';
-        $result = DB::select('CALL sp_total_nilai(?)', array("PDFT002"));
-        $pdft = TrPendaftaranSidangTa::where(["pdft_id" => "PDFT002"])->first();
-        $penguji = 1;
-        if($pdft->pdft_penguji2){
-            $penguji++;
-        }
-        if($pdft->pdft_penguji3){
-            $penguji++;
-        }
-        return view ('Pdf.berita_acara', compact('title', 'pdft', 'result', 'penguji'));
+        return view ('Dashboard_Pebimbing.index', compact('title'));
     }
     public function hasilSidang()
     {
