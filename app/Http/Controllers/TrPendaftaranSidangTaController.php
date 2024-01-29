@@ -62,7 +62,14 @@ class TrPendaftaranSidangTaController extends Controller
         $pdf = Pdf::loadView('Pdf.berita_acara', compact(['pdft']));
         return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$pdft->mhs_username.'.pdf');
     }
-    
+    public function undang(string $id) {
+        $pdft = TrPendaftaranSidangTa::findorFail($id);
+        $mahasiswa = msmahasiswa::where('mhs_username', $pdft->mhs_username)->first();
+        $title = 'Detail Sidang & Undangan Sidang';
+
+
+        return view('DashboardKoordinatorTA.Pendaftaran_sidang.undang', compact('title', 'pdft', 'mahasiswa'));
+    }
     public function generatePdfUndangan($idTr)
     {
         $m = new Merger();
