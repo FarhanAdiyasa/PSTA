@@ -131,3 +131,5 @@ Route::get('/generate-pdf/{idTr}/{idUsn}', [TrPendaftaranSidangTaController::cla
 Route::get('/generate-pdf-ba/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfBap'])->name('generate.pdf.ba'); 
 Route::get('/generate-pdf-undangan/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfUndangan'])->name('generate.pdf.undangan'); 
 
+
+Route::get('/template/penilaian', [TrPendaftaranSidangTaController::class, 'downloadForm'])->name('download.penilaian');

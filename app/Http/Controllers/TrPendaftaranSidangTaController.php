@@ -47,6 +47,16 @@ class TrPendaftaranSidangTaController extends Controller
         $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $id])->first();
         return view('DashboardKoordinatorTA.Pendaftaran_Sidang.Setujui', compact('title', 'pdft'));
     }
+    public function downloadForm()
+    {
+        $templatePath = 'penilaian.pdf';
+    
+        if (Storage::disk('public')->exists($templatePath)) {
+            return response()->download(storage_path('app/public/' . $templatePath), 'Template Penilaian.pdf');
+        } else {
+            return response()->json(['error' => 'Template not found.'], 404);
+        }
+    }
     public function generatePdfNilai($idTr, $idUsn)
     {
         $nilai = dtlnilaikategori::where(['pdft_id'=>$idTr, 'png_username'=>$idUsn])->get();
@@ -115,14 +125,6 @@ class TrPendaftaranSidangTaController extends Controller
         $pdft->pdft_statusverifikasidokumen = "Disetujui";
         $pdft->save();
         return redirect()->route('SidangKoor')->with('success', 'Pengajuan Disetujui!');
-    }
-    public function downloadTemplate($file)
-    {
-        if (Storage::disk('public')->exists('uploads/' . $file)) {
-            return response()->download(storage_path('app/public/uploads/' . $file), $file);
-        } else {
-            return response()->json(['error' => 'Template not found.'], 404);
-        }
     }
     public function downloadAll($id)
     {

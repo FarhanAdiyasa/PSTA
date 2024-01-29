@@ -178,8 +178,12 @@
                             <br>
                             @if($pdft->pdft_jenissidang)
                                 <div class="d-grid gap-2 d-md-block">
-                                    <button class="btn btn-primary" type="button">Unduh Undangan</button>
-                                    <button class="btn btn-primary" type="button">Form Penilaian</button>
+                                       <a href="{{route('download.penilaian')}}">
+                                        <button class="btn btn-primary" type="button">Form Penilaian</button>
+                                        </a> 
+                                        <a href="{{route('generate.pdf.undangan', ["idTr"=>$pdft->pdft_id])}}">
+                                            <button class="btn btn-primary" type="button">Unduh Undangan</button>
+                                        </a>
                                 </div>
                             @endif
                         </form>
