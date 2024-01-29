@@ -2,15 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class msmahasiswa extends Model
+class msmahasiswa extends Model implements Authenticatable
 {
-    use HasFactory;
+    use HasFactory, AuthenticatableTrait;
     protected $table = 'sidangta_msmahasiswa';
     protected $primaryKey = 'mhs_username';
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = ['mhs_username', 'mhs_password', 'mhs_nama'];
+
+    protected $hidden = [
+        'mhs_password',
+    ];
+    protected $casts = [
+        'mhs_username' => 'string',
+    ];
+
+    public function getAuthPassword()
+    {
+        return $this->mhs_password;
+    }
 }

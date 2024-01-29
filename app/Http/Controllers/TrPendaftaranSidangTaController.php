@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\dtlnilaikategori;
+use validation;
 use App\Models\mspengguna;
+use App\Models\msmahasiswa;
 use Illuminate\Http\Request;
+use App\Models\mstahunajaran;
 use Illuminate\Support\Carbon;
 use App\Models\mspebimbingpenguji;
 use Illuminate\Support\Facades\DB;
+use App\Models\mskategoripenilaian;
 use App\Models\TrPendaftaranSidangTa;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
     use ZipArchive;
     
 
@@ -39,9 +46,7 @@ class TrPendaftaranSidangTaController extends Controller
     {   
         $pdft = TrPendaftaranSidangTa::findorfail($id);
         $title = 'Pembimbing / Lengkapi';
-        $pengguna = mspengguna::where(['png_role'=>'Pembimbing'])->get();
-
-        return view('DashboardKoordinatorTA.Pendaftaran_Sidang.verifikasi', compact('title', 'pdft', 'pengguna'));
+        return view('DashboardKoordinatorTA.Pendaftaran_Sidang.verifikasi', compact('title', 'pdft'));
     }
     public function verifikasiStore(Request $request, $id)
     {   
@@ -112,10 +117,20 @@ class TrPendaftaranSidangTaController extends Controller
     {   
         $pdft = TrPendaftaranSidangTa::findorfail($id);
         $title = 'Pembimbing / Lengkapi';
-        $pembimbing = mspengguna::where(['png_role'=>'Pembimbing'])->get();
-        $penguji = mspengguna::where(['png_role'=>'Penguji'])->get();
+        $pembimbing =  DB::table('sidangta_mspembimbingpenguji')
+        ->join('sidangta_mspengguna', 'sidangta_mspembimbingpenguji.png_username', '=', 'sidangta_mspengguna.png_username')
+        ->where('sidangta_mspengguna.png_role', 'Pembimbing')
+        ->select('sidangta_mspengguna.png_username')
+        ->get();
 
-        return view('Dashboard_Mahasiswa.Pendaftaran_Sidang.complete', compact('title', 'pdft', 'penguji', 'pembimbing'));
+        $penguji = DB::table('sidangta_mspembimbingpenguji')
+        ->join('sidangta_mspengguna', 'sidangta_mspembimbingpenguji.png_username', '=', 'sidangta_mspengguna.png_username')
+        ->where('sidangta_mspengguna.png_role', 'Penguji')
+        ->select('sidangta_mspengguna.png_username')
+        ->get();
+        $tahun = mstahunajaran::get();
+
+        return view('Dashboard_Mahasiswa.Pendaftaran_Sidang.complete', compact('title', 'pdft', 'penguji', 'pembimbing', 'tahun'));
     }
     public function completeStore(Request $request, $id)
     {   
@@ -130,6 +145,7 @@ class TrPendaftaranSidangTaController extends Controller
             'pdft_jenissidang' => 'required',
             'pdft_pembimbing1' => 'required|string',
             'pdft_penguji1' => 'required|string',
+            'thn_id' => 'required|string',
             'pdft_pembimbing2' => 'nullable',
             'pdft_penguji2' => 'nullable',
             'pdft_penguji3' => 'nullable',
@@ -190,6 +206,7 @@ class TrPendaftaranSidangTaController extends Controller
         }
       
         $validatedData['pdft_tanggaldibuat'] = Carbon::now();
+        $validatedData['mhs_username'] = auth('mahasiswa')->user()->mhs_username;
         try {
             TrPendaftaranSidangTa::create($validatedData);
             return redirect()->route('Sidang')->with('success', 'Data successfully submitted.');
@@ -231,9 +248,111 @@ class TrPendaftaranSidangTaController extends Controller
         //
     }
 
-    public function nilai(string $id) {
-        $dataPendaftaranSidang = TrPendaftaranSidangTa::where('pdft_id', $id)->first();
-        return
-        $dataPembimbing = DB::select();
+    public function dinilai(string $id) {
+        $data = TrPendaftaranSidangTa::findorFail($id);
+        $title = 'Detail Penilaian';
+
+        return view('DashboardKoordinatorTA.HasilSidang.index', compact('title', 'data'));
     }
+
+    public function detail(string $id) {
+        $pdft = TrPendaftaranSidangTa::findorFail($id);
+        $mahasiswa = msmahasiswa::where('mhs_username', $pdft->mhs_username)->first();
+        $title = 'Detail Penilaian';
+
+
+        $penguji = TrPendaftaranSidangTa::where(['pdft_id' => $id])
+                                        ->first(['pdft_penguji1', 'pdft_penguji2', 'pdft_penguji3']);
+
+        $penilaianPenguji1 = $penilaianPenguji2 = $penilaianPenguji3 = [];
+
+        if ($penguji !== null) {
+            foreach (range(1, 3) as $index) {
+                $pengujiField = "pdft_penguji{$index}";
+
+                if ($penguji->$pengujiField !== null) {
+                    $penilaianField = "penilaianPenguji{$index}";
+
+                    $$penilaianField = dtlnilaikategori::where('png_username', $penguji->$pengujiField)
+                        ->where('pdft_id', $id)
+                        ->get();
+                }
+            }
+        }
+
+        return view('Dashboard_Mahasiswa.Hasil_sidang.detail', compact('title', 'pdft', 'mahasiswa', 'penilaianPenguji1', 'penilaianPenguji2', 'penilaianPenguji3'));
+    }
+
+    public function penilaian() {
+        $data = DB::select('SELECT * FROM `vw_penilaian`');
+        $title = 'Penilaian Sidang';
+        return view('Dashboard_Penguji.Penilaian_Sidang_TA.Index', compact('title', 'data'));
+    }
+
+    public function nilai(string $id) {
+        $data = TrPendaftaranSidangTa::where('pdft_id', $id)->first();
+        $mahasiswa = DB::select("SELECT * FROM `sidangta_msmahasiswa` WHERE `mhs_username` = ? LIMIT 1", [$data->mhs_username]);
+        $title = 'Penilaian Sidang';
+        $mahasiswa = $mahasiswa[0];
+
+        //Kategori Penilaian
+        $kategori = mskategoripenilaian::all();
+        return view('Dashboard_Penguji.Penilaian_Sidang_TA.create', compact('title', 'data', 'mahasiswa', 'kategori'));
+    }
+
+    public function penilaian_save(Request $request, string $id) {
+        try {
+            // Get category IDs
+            $dataKategori = mskategoripenilaian::pluck('mkp_id');
+            // Get all categories
+            $kategori = mskategoripenilaian::all();
+            // Get all request data
+            $requestData = $request->all();
+    
+            // Validate each category
+            foreach ($dataKategori as $kategoriId) {
+                $request->validate([
+                    $kategoriId => 'required',
+                ]);
+            }
+    
+            // Extract data from the request excluding the first two keys
+            $filteredData = array_slice($requestData, 2, null, true);
+
+            // Convert the values to integers
+            $filteredData = array_map('intval', $filteredData);
+
+            $sum = array_sum($filteredData);
+
+            // Divide the sum by 3 and convert to integer
+            $roundedSum = floor($sum / 3);
+            // Output the result
+
+            DB::update('UPDATE `sidangta_trpendaftaransidangta` SET pdft_totalnilai =  pdft_totalnilai + ? WHERE pdft_id = ?', [$roundedSum, $id]);
+
+            
+
+            // Insert data into the database
+            foreach ($kategori as $item) {
+                DB::table('sidangta_dtlnilaikategori')->insert([
+                    'dnk_id' => $request->dnk_id,
+                    'mkp_id' => $item->mkp_id,
+                    'mkp_nama' => $item->mkp_nama,
+                    'dnk_nilai' => $filteredData[$item->mkp_id],
+                    'pdft_id' => $id,
+                    'png_username' => session()->get('png_username')
+                ]);
+            }
+    
+            return redirect()->route('Penilaian.sidang')->with('success', 'Data successfully submitted.');
+    
+        } catch (ValidationException $e) {
+            // Handle validation exception here
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions here
+            return response()->json(['error' => $e], 500);
+        }
+    }
+    
 }

@@ -88,7 +88,7 @@
                                 <span class="text-danger">Tanggal Sidang tidak boleh kosong</span><br>
                                 @enderror
                             </div>
-                        
+
                             <div class="mb-3">
                                 <label for="pdft_jenissidang" class="form-label" style="font-weight: bold;">Jenis<span style="color: red;">*</span></label>
                                 <select name="pdft_jenissidang" class="form-control" id="pdft_jenissidang" aria-describedby="emailHelp">
@@ -97,6 +97,20 @@
                                     <option value="Offline">Offline</option>
                                 </select>
                                 @error('pdft_jenissidang')
+                                <span class="text-danger">Jenis tidak boleh kosong</span><br>
+                                @enderror
+                            </div>
+                        
+                            <div class="mb-3">
+                                <label for="thn_id" class="form-label" style="font-weight: bold;">Jenis<span style="color: red;">*</span></label>
+                                <select name="thn_id" class="form-control" id="thn_id" aria-describedby="emailHelp">
+                                    <option value="" selected disabled>Pilih Tahun Ajaran</option>
+                                    @foreach ($tahun as $item)
+                                    <option value="{{$item->thn_id}}">{{$item->thn_tahunajaran}}</option>
+                                @endforeach
+                                 
+                                </select>
+                                @error('thn_id')
                                 <span class="text-danger">Jenis tidak boleh kosong</span><br>
                                 @enderror
                             </div>
@@ -120,7 +134,7 @@
                                     @endforeach
                                     </select>
                                 @error('pdft_penguji1')
-                                <span class="text-danger">Waktu tidak boleh kosong</span><br>
+                                <span class="text-danger">Penguji 1 tidak boleh kosong</span><br>
                                 @enderror
                             </div>
                                 <div class="col-6">
@@ -212,7 +226,7 @@
             });
         });
     </script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var penguji1 = document.getElementById('pdft_penguji1');
             var penguji2 = document.getElementById('pdft_penguji2');
@@ -286,7 +300,7 @@
                 });
             }
     });
-</script>
+</script> --}}
 
     
 @endsection

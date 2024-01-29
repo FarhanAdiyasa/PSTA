@@ -54,6 +54,28 @@
                         </a>
                     </td>
                 </tr>
+                @elseif($row->pdft_statusverifikasidata == "True")
+                <tr>
+                    <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
+                    <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
+                    <td class="align-middle text-center">Menunggu Penilaian</td>
+                    <td  class="align-middle text-center">
+                        <a href="{{ route('SidangKoor.Setujui', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+                    </td>
+                </tr>
+                @elseif($row->pdft_statusverifikasidata != "null")
+                <tr>
+                    <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
+                    <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
+                    <td class="align-middle text-center">Sudah Dinilai</td>
+                    <td  class="align-middle text-center">
+                        <a href="{{ route('SidangKoor.dinilai', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+                    </td>
+                </tr>
                 @else
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>

@@ -36,6 +36,15 @@ return [
     */
 
     'guards' => [
+        'mahasiswa' => [
+            'driver' => 'session',
+            'provider' => 'mahasiswa_users',
+        ],
+
+        'pengguna' => [
+            'driver' => 'session',
+            'provider' => 'pengguna_users',
+        ],
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -60,15 +69,19 @@ return [
     */
 
     'providers' => [
+        'mahasiswa_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\msmahasiswa::class,
+        ],
+
+        'pengguna_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\mspengguna::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

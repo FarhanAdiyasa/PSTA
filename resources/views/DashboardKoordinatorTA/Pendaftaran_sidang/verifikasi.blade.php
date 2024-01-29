@@ -171,7 +171,11 @@
                                     </div>
                                 </div>
                             <!-- Tombol untuk menampilkan modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInputLinkSidang">Verifikasi</button>
+                            @if (!Auth::guard('mahasiswa')->check())
+                                @if ($pdft->pdft_statusverifikasidata != 'True')
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInputLinkSidang">Verifikasi</button>
+                                @endif
+                            @endif
                             <div class="modal fade" id="modalInputLinkSidang" tabindex="-1" aria-labelledby="modalInputLinkSidangLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -194,8 +198,9 @@
                                                     <input type="text" class="form-control" id="pdft_tempatsidang2" name="pdft_tempatsidang2" placeholder="Masukkan Tempat Sidang" required>
                                                 </div>
                                                 @endif
-                                              
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                @if (!Auth::guard('mahasiswa')->check())
+                                                    <button type="submit" class="btn btn-primary">Verifikasi</button>
+                                                @endif
                                             </form>
                                         </div>
                                     </div>

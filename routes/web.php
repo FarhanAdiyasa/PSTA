@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardDAAAController;
-use App\Http\Controllers\DashboardKepalaProdiController;
-use App\Http\Controllers\DashboardKoordinatorTAController;
-use App\Http\Controllers\DashboardMahasiswaController;
-use App\Http\Controllers\DashboardPebimbingController;
-use App\Http\Controllers\DashboardPengujiController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\mskategoripenilaianController;
-use App\Http\Controllers\PembimbingController;
-use App\Http\Controllers\mspenggunaController;
-use App\Http\Controllers\TrPendaftaranSidangTaController;
 use App\Models\mspebimbingpenguji;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PengujiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\mspenggunaController;
+use App\Http\Controllers\PembimbingController;
+use App\Http\Controllers\DashboardDAAAController;
+use App\Http\Controllers\DashboardPengujiController;
+use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\DashboardPebimbingController;
+use App\Http\Controllers\mskategoripenilaianController;
+use App\Http\Controllers\DashboardKepalaProdiController;
+use App\Http\Controllers\TrPendaftaranSidangTaController;
+use App\Http\Controllers\DashboardKoordinatorTAController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,19 +68,40 @@ Route::get('/Edit/{mkp_id}', [mskategoripenilaianController::class, 'Edit'])->na
 Route::post('/updatedata/{mkp_id}', [mskategoripenilaianController::class, 'updatedata'])->name('updatedata');
 Route::get('/delete/{mkp_id}', [mskategoripenilaianController::class, 'delete'])->name('delete');
 
+Route::get('/kategori_penilaian', [mskategoripenilaianController::class, 'index'])->name('kategori_penilaian');
+Route::get('/kategori_penilaian/Create', [mskategoripenilaianController::class, 'Create'])->name('kategori_penilaian.Create'); 
+Route::post('/kategori_penilaian', [mskategoripenilaianController::class, 'insertdata'])->name('kategori_penilaian.insertdata');
+Route::get('/kategori_penilaian/Edit/{mkp_id}', [mskategoripenilaianController::class, 'Edit'])->name('kategori_penilaian.Edit'); 
+Route::post('/kategori_penilaian/updatedata/{mkp_id}', [mskategoripenilaianController::class, 'updatedata'])->name('kategori_penilaian.updatedata');
+Route::get('/kategori_penilaian/delete/{mkp_id}', [mskategoripenilaianController::class, 'delete'])->name('kategori_penilaiandelete');
+
+//Penguji
+Route::get('/Penguji', [PengujiController::class, 'index'])->name('Penguji');
+Route::get('/Penguji/Create', [PengujiController::class, 'Create'])->name('Penguji.Create'); // Fixed the route name
+Route::post('/Penguji/Insert', [PengujiController::class, 'Insert'])->name('Penguji.Insert');
+Route::get('/Penguji/Edit/{pbn_id}', [PengujiController::class, 'Edit'])->name('Penguji.Edit'); // Fixed the double slash
+Route::post('/Penguji/Update/{pbn_id}', [PengujiController::class, 'updateDataPebimbingPengguna'])->name('Penguji.Update');
+Route::post('/Penguji/Delete/{pbn_id}', [PengujiController::class, 'delete'])->name('Penguji.Delete');
+
+//Pembimbing
 Route::get('/Pembimbing', [PembimbingController::class, 'index'])->name('Pembimbing');
 Route::get('/Pembimbing/Create', [PembimbingController::class, 'Create'])->name('Pembimbing.Create'); // Fixed the route name
 Route::post('/Pembimbing/Insert', [PembimbingController::class, 'Insert'])->name('Pembimbing.Insert');
 Route::get('/Pembimbing/Edit/{pbn_id}', [PembimbingController::class, 'Edit'])->name('Pembimbing.Edit'); // Fixed the double slash
 Route::post('/Pembimbing/Update/{pbn_id}', [PembimbingController::class, 'updateDataPebimbingPengguna'])->name('Pembimbing.Update');
 Route::post('/Pembimbing/Delete/{pbn_id}', [PembimbingController::class, 'Delete'])->name('Pembimbing.Delete');
-
 Route::get('/', [mspenggunaController::class, 'login'])->name('login'); 
+Route::get('/Akun/Logout',[mspenggunaController::class,'logout'])->name('actioLogout');
 Route::post('/loginproses', [mspenggunaController::class, 'loginproses'])->name('loginproses'); 
 Route::get('/register', [mspenggunaController::class, 'register'])->name('register'); 
 Route::post('/registeruser', [mspenggunaController::class, 'registeruser'])->name('registeruser');
 Route::get('/Indexregister', [mspenggunaController::class, 'Index_register'])->name('Indexregister.Index_register'); 
 Route::get('/delete_Pengguna/{png_username}', [mspenggunaController::class, 'delete_pengguna'])->name('delete_Pengguna.delete_pengguna');
+
+
+Route::get('/PenilaianSidang', [TrPendaftaranSidangTaController::class, 'penilaian'])->name('Penilaian.sidang');
+Route::post('/PenilaianSidang/{id}/save', [TrPendaftaranSidangTaController::class, 'penilaian_save'])->name('Penilaian.save');
+Route::get('/PenilaianSidang/{id}/nilai', [TrPendaftaranSidangTaController::class, 'nilai'])->name('Penilaian.nilai');
 
 
 
@@ -90,6 +112,7 @@ Route::get('/Sidang/Complete/{id}', [TrPendaftaranSidangTaController::class, 'co
 Route::post('/Sidang/Complete/{id}', [TrPendaftaranSidangTaController::class, 'completeStore'])->name('Sidang.complete.store'); // Fixed the double slash
 Route::post('/Sidang/Update/{pbn_id}', [TrPendaftaranSidangTaController::class, 'updateDataPebimbingPengguna'])->name('Sidang.Update');
 Route::post('/Sidang/Delete/{pbn_id}', [TrPendaftaranSidangTaController::class, 'Delete'])->name('Sidang.Delete');
+Route::get('/Sidang/{id}/detail', [TrPendaftaranSidangTaController::class, 'detail'])->name('Sidang.detail');
 
 
 
@@ -100,3 +123,5 @@ Route::get('/download/{file}', [TrPendaftaranSidangTaController::class, 'downloa
 Route::get('/downloadAll/{id}', [TrPendaftaranSidangTaController::class, 'downloadAll'])->name('download.all');
 Route::get('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::class, 'verifikasi'])->name('Sidang.verifikasi'); 
 Route::post('/SidangKoor/Verifikasi/{id}', [TrPendaftaranSidangTaController::class, 'verifikasiStore'])->name('Sidang.verifikasi.store'); 
+
+Route::get('/SidangKoor/{id}/detail', [TrPendaftaranSidangTaController::class, 'dinilai'])->name('SidangKoor.dinilai');

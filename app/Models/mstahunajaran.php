@@ -11,5 +11,6 @@ class mstahunajaran extends Model
     protected $table = 'sidangta_mstahunajaran';
     protected $primaryKey = 'thn_id';
     public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = ['thn_id', 'thn_tahunajaran', 'thn_status'];
 }

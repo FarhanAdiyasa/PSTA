@@ -49,7 +49,7 @@
 
                             <div class="mb-3">
                                 <label for="pdft_bapsuratketerangan" class="form-label">BAP Surat Keterangan</label>
-                                <input type="file" name="pdft_bapsuratketerangan" class="form-control" id="pdft_bapsuratketerangan" accept=".doc, .docx, .pdf">
+                                <input type="file" name="pdft_bapsuratketerangan" class="form-control" id="pdft_bapsuratketerangan" accept=".pdf">
                                 @error('pdft_bapsuratketerangan')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -57,7 +57,7 @@
 
                             <div class="mb-3">
                                 <label for="pdft_bapprasidang" class="form-label">BAP Prasidang</label>
-                                <input type="file" name="pdft_bapprasidang" class="form-control" id="pdft_bapprasidang" accept=".doc, .docx, .pdf">
+                                <input type="file" name="pdft_bapprasidang" class="form-control" id="pdft_bapprasidang" accept=".pdf">
                                 @error('pdft_bapprasidang')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -65,7 +65,7 @@
 
                             <div class="mb-3">
                                 <label for="pdft_bapbimbingan" class="form-label">BAP Bimbingan</label>
-                                <input type="file" name="pdft_bapbimbingan" class="form-control" id="pdft_bapbimbingan" accept=".doc, .docx, .pdf">
+                                <input type="file" name="pdft_bapbimbingan" class="form-control" id="pdft_bapbimbingan" accept=".pdf">
                                 @error('pdft_bapbimbingan')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -73,7 +73,7 @@
 
                             <div class="mb-3">
                                 <label for="pdft_baplembarpersetujuan" class="form-label">BAP Lembar Persetujuan</label>
-                                <input type="file" name="pdft_baplembarpersetujuan" class="form-control" id="pdft_baplembarpersetujuan" accept=".doc, .docx, .pdf">
+                                <input type="file" name="pdft_baplembarpersetujuan" class="form-control" id="pdft_baplembarpersetujuan" accept=".pdf">
                                 @error('pdft_baplembarpersetujuan')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
