@@ -2,6 +2,8 @@
 @section('konten')
 
 <body>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <div class="container">
             <div class="text-center mb-4">
                 <h4>Selamat Datang Penilaian Sidang TA</h4>
@@ -83,7 +85,10 @@
                 });
             </script>
         </div>
+        <script>
+            $(document).ready( function () {    
+                $('#Pebimbing_penguji').DataTable();
+            } );
+        </script>
 </body>
-
-   
 @endsection

@@ -3,6 +3,8 @@
 
 
 <body>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <div class="container">
         <center>
             <span style="font-size: Larger; font-weight: bold;">Kategori Penilaian</span>
@@ -87,6 +89,11 @@
                 }
             });
         });
+    </script>
+    <script>
+        $(document).ready( function () {    
+            $('#Pebimbing_penguji').DataTable();
+        } );
     </script>
 </body>
 @endsection

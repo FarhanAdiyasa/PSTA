@@ -45,14 +45,9 @@
                             ?>
 
 
-                            <div class="mb-3">
-                                <label for="pbn_id" class="form-label" style="font-weight: bold;">ID <span style="color: red;">*</span></label>
-                                <input type="text" name="pbn_id" value="{{ $pbn_id }}" class="form-control" id="pbn_id" aria-describedby="emailHelp" readonly>
-                                <input type="hidden" name="pbn_status" value="1" class="form-control" id="pbn_status">
-                                @error('pbn_id')
-                                <span class="text-danger">{{ $message }}</span><br>
-                                @enderror
-                            </div>
+                            <input type="hidden" name="pbn_id" value="{{ $pbn_id }}" class="form-control" id="pbn_id" aria-describedby="emailHelp" readonly>
+                            <input type="hidden" name="pbn_status" value="1" class="form-control" id="pbn_status">
+
                             <div class="mb-3">
                                 <div class="mb-3">
                                     <label for="pbn_jenis" class="form-label" style="font-weight: bold;">Jenis<span style="color: red;">*</span></label>

@@ -12,10 +12,7 @@
                     <div class="card-body">
                         <form action="{{route('Pembimbing.Update', $data->pbn_id)}}" method="POST" enctype="multipart/form-data" name="updatedata.pebinbing_pengguna">
                             @csrf
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label" style="font-weight: bold;">ID </label>
-                                <input type="text" name="pbn_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$data->pbn_id}}" readonly>
-                            </div>
+                            <input type="hidden" name="pbn_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$data->pbn_id}}" readonly>
                             <div class="mb-3">
                                 <label for="pbn_jenis" class="form-label" style="font-weight: bold;">Jenis<span style="color: red;">*</span></label>
                                 <select name="pbn_jenis" class="form-control" id="pbn_jenis" aria-describedby="emailHelp">

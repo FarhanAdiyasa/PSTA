@@ -41,13 +41,7 @@
                             ?>
 
 
-                            <div class="mb-3">
-                                <label for="mkp_id" class="form-label" style="font-weight: bold;">ID <span style="color: red;">*</span></label>
-                                <input type="text" name="mkp_id" value="{{ $mkp_id }}" class="form-control" id="mkp_id" aria-describedby="emailHelp" readonly>
-                                @error('mkp_id')
-                                <span class="text-danger">{{ $message }}</span><br>
-                                @enderror
-                            </div>
+                            <input type="hidden" name="mkp_id" value="{{ $mkp_id }}" class="form-control" id="mkp_id" aria-describedby="emailHelp" readonly>
                             <div class="mb-3">
                                 <label for="mkp_nama" class="form-label" style="font-weight: bold;">Nama<span style="color: red;">*</span></label>
                                 <input type="text" name="mkp_nama" value="" class="form-control" id="mkp_nama" aria-describedby="emailHelp">

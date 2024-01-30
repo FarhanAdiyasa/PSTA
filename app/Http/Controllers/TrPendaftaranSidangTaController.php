@@ -31,8 +31,8 @@ class TrPendaftaranSidangTaController extends Controller
      */
     public function index()
     {
-        $data = TrPendaftaranSidangTa::paginate(5);
-        $title = 'Pembimbing';
+        $data = TrPendaftaranSidangTa::where('mhs_username', session()->get('png_username'))->paginate(5);
+        $title = 'Sidang Tugas Akhir';
         return view('Dashboard_Mahasiswa.Pendaftaran_Sidang.Index', compact('title', 'data'));
     }
     public function indexKoor()
@@ -300,9 +300,29 @@ class TrPendaftaranSidangTaController extends Controller
 
     public function dinilai(string $id) {
         $pdft = TrPendaftaranSidangTa::findorFail($id);
+        $mahasiswa = msmahasiswa::where('mhs_username', $pdft->mhs_username)->first();
         $title = 'Detail Penilaian';
-        $tahun = mstahunajaran::get();
-        return view('DashboardKoordinatorTA.HasilSidang.index', compact('title', 'pdft', 'tahun'));
+
+
+        $penguji = TrPendaftaranSidangTa::where(['pdft_id' => $id])
+                                        ->first(['pdft_penguji1', 'pdft_penguji2', 'pdft_penguji3']);
+
+        $penilaianPenguji1 = $penilaianPenguji2 = $penilaianPenguji3 = [];
+
+        if ($penguji !== null) {
+            foreach (range(1, 3) as $index) {
+                $pengujiField = "pdft_penguji{$index}";
+
+                if ($penguji->$pengujiField !== null) {
+                    $penilaianField = "penilaianPenguji{$index}";
+
+                    $$penilaianField = dtlnilaikategori::where('png_username', $penguji->$pengujiField)
+                        ->where('pdft_id', $id)
+                        ->get();
+                }
+            }
+        }
+        return view('DashboardKoordinatorTA.HasilSidang.index', compact('title', 'pdft', 'mahasiswa', 'penilaianPenguji1', 'penilaianPenguji2', 'penilaianPenguji3'));
     }
 
     public function detail(string $id) {

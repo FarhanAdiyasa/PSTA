@@ -2,6 +2,8 @@
 
 @section('konten')
 <body>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -79,7 +81,11 @@
                 @else
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
-                    <td class="align-middle text-center">Pengajuan Pendaftaran Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
+                    @php
+                        // Konversi tanggal menggunakan Carbon
+                        $formattedDate = \Carbon\Carbon::parse($row->pdft_tanggaldibuat)->format('l, d F Y');
+                    @endphp
+                    <td class="align-middle text-center">Pengajuan Pendaftaran Sidang Pada {{ $formattedDate}} Disetujui!</td>
                     <td class="align-middle text-center">Menunggu Persetujuan Koordinator</td>
                     <td  class="align-middle text-center">
                         <a href="{{route('Sidang.verifikasi', ['id' => $row->pdft_id])}}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
@@ -94,4 +100,9 @@
 </div>
 </div>
 </body>  
+<script>
+    $(document).ready( function () {    
+        $('#Pebimbing_penguji').DataTable();
+    } );
+</script>
 @endsection

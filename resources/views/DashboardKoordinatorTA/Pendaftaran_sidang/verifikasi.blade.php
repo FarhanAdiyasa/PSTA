@@ -43,7 +43,7 @@
                         
                             <div class="mb-3">
                                 <label for="pdft_tanggalmulai" class="form-label" style="font-weight: bold;">Tanggal Mulai<span style="color: red;">*</span></label>
-                                <input type="text" name="pdft_tanggalmulai" value="{{ \Carbon\Carbon::parse($pdft->pdft_tanggalmulai)->format('d-m-Y') }}" class="form-control" id="pdft_tanggalmulai" readonly>
+                                <input type="text" name="pdft_tanggalmulai" value="{{ $pdft->pdft_tanggalmulai }}" class="form-control" id="pdft_tanggalmulai" readonly>
                                 <!-- Error message if pdft_tanggalmulai is empty -->                                
                                 @error('pdft_tanggalmulai')
                                 <span class="text-danger">Tanggal Mulai tidak boleh kosong</span><br>
@@ -61,7 +61,7 @@
                         
                             <div class="mb-3">
                                 <label for="pdft_tanggaldibuat" class="form-label" style="font-weight: bold;">Tanggal Dibuat<span style="color: red;">*</span></label>
-                                <input type="date" name="pdft_tanggaldibuat" value="{{$pdft->pdft_tanggaldibuat}}" class="form-control" id="pdft_tanggaldibuat" readonly>
+                                <input type="text" name="pdft_tanggaldibuat" value="{{$pdft->pdft_tanggaldibuat}}" class="form-control" id="pdft_tanggaldibuat" readonly>
                                 <!-- Error message if pdft_tanggalidbuat is empty -->
                                 @error('pdft_tanggaldibuat')
                                 <span class="text-danger">Tanggal Dibuat tidak boleh kosong</span><br>
@@ -80,7 +80,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label for="pdft_tanggalsidang" class="form-label" style="font-weight: bold;">Tanggal Sidang & Waktu Sidang<span style="color: red;">*</span></label>
-                                        <input type="datetime-local" name="pdft_tanggalsidang" value="{{$pdft->pdft_tanggalsidang}}" class="form-control" id="pdft_tanggalsidang" readonly>
+                                        <input type="text" name="pdft_tanggalsidang" value="{{$pdft->pdft_tanggalsidang}}" class="form-control" id="pdft_tanggalsidang" readonly>
                                         <!-- Error message if pdft_tanggalsidang is empty -->
                                         @error('pdft_tanggalsidang')
                                         <span class="text-danger">Tanggal Sidang tidak boleh kosong</span><br>
@@ -132,13 +132,13 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label for="pdft_penguji1" class="form-label" style="font-weight: bold;">Penguji 1<span style="color: red;">*</span></label>
-                                    <select name="pdft_penguji1" class="form-control" id="pdft_penguji1">
+                                    <select name="pdft_penguji1" class="form-control" id="pdft_penguji1" @readonly(true)>
                                         <option value="{{$pdft->pdft_penguji1}}">{{$pdft->pdft_penguji1}}</option>
                                 </select>
                                 </div>
                                     <div class="col-6">
                                         <label for="pdft_pembimbing1" class="form-label" style="font-weight: bold;">Pembimbing 1<span style="color: red;">*</span></label>
-                                        <select name="pdft_pembimbing1" class="form-control" id="pdft_pembimbing1">
+                                        <select name="pdft_pembimbing1" class="form-control" id="pdft_pembimbing1" @readonly(true)>
                                             <option value="{{$pdft->pdft_pembimbing1}}">{{$pdft->pdft_pembimbing1}}</option>
                                     </select>
                                     </div>
@@ -147,13 +147,13 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="pdft_penguji2" class="form-label" style="font-weight: bold;">Penguji 2<span style="color: red;">*</span></label>
-                                        <select name="pdft_penguji2" class="form-control" id="pdft_penguji2">
+                                        <select name="pdft_penguji2" class="form-control" id="pdft_penguji2" @readonly(true)>
                                             <option value="{{$pdft->pdft_penguji2}}">{{$pdft->pdft_penguji2}}</option>
                                     </select>
                                     </div>
                                     <div class="col-6">
                                         <label for="pdft_pembimbing2" class="form-label" style="font-weight: bold;">Pembimbing 2<span style="color: red;">*</span></label>
-                                        <select name="pdft_pembimbing2" class="form-control" id="pdft_pembimbing2">
+                                        <select name="pdft_pembimbing2" class="form-control" id="pdft_pembimbing2" @readonly(true)>
                                             <option value="{{$pdft->pdft_pembimbing2}}">{{$pdft->pdft_pembimbing2}}</option>
                                     </select>
                                     </div>
@@ -162,7 +162,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="pdft_penguji3" class="form-label" style="font-weight: bold;">Penguji 3<span style="color: red;">*</span></label>
-                                        <select name="pdft_penguji3" class="form-control" id="pdft_penguji3">
+                                        <select name="pdft_penguji3" class="form-control" id="pdft_penguji3" @readonly(true)>
                                                 <option value="{{$pdft->pdft_penguji3}}">{{$pdft->pdft_penguji3}}</option>
                                         </select>
                                         @error('pdft_penguji3')
@@ -213,10 +213,51 @@
         </div>
     </div>
     <script>
+
+
         document.addEventListener('DOMContentLoaded', function() {
             var jenisSelect = document.getElementById('pdft_jenissidang');
             var tempatSidang1 = document.getElementById('pdft_tempatsidang1');
             var waktuInput = document.getElementById('pdft_waktu');
+
+            var inputElement = document.getElementById('pdft_tanggalmulai');
+            var tanggalDibuatElement = document.getElementById('pdft_tanggaldibuat');
+            var dateString = inputElement.value;
+            var dateString2 = tanggalDibuatElement.value;
+
+            // Konversi string tanggal ke objek Date
+            var dateObject = new Date(dateString);
+            var dateObject2 = new Date(dateString2);
+
+            // Daftar nama hari dalam Bahasa Indonesia
+            var daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            var daysOfWeek2 = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+            // Ambil nama hari
+            var dayName = daysOfWeek[dateObject.getDay()];
+            var dayName2 = daysOfWeek2[dateObject2.getDay()];
+
+            // Ambil tanggal, bulan, dan tahun
+            var day = dateObject.getDate();
+            var day2 = dateObject2.getDate();
+            var monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            var monthNames2 = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            var monthName = monthNames[dateObject.getMonth()];
+            var monthName2 = monthNames2[dateObject2.getMonth()];
+            var year = dateObject.getFullYear();
+            var year2 = dateObject2.getFullYear();
+
+            // Format tanggal yang diinginkan
+            var formattedDate = dayName + ', ' + day + ' ' + monthName + ' ' + year;
+            var formattedDate2 = dayName2 + ', ' + day2 + ' ' + monthName2 + ' ' + year2;
+
+            // Set nilai input dengan tanggal yang diformat
+            inputElement.value = formattedDate;
+            tanggalDibuatElement.value = formattedDate2;
+
+            //Format Tanggal Sidang
+            
+
 
             function setFieldsVisibility() {
                 var selectedJenis = jenisSelect.value;
@@ -233,6 +274,7 @@
             jenisSelect.addEventListener('change', function() {
                 setFieldsVisibility();
             });
+            
         });
     </script>
     

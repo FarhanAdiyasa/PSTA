@@ -11,10 +11,7 @@
                     <div class="card-body">
                         <form action="/kategori_penilaian/updatedata/{{$data->mkp_id}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label"style="font-weight: bold;">ID </label>
-                                <input type="text" name="mkp_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value="{{$data->mkp_id}}"readonly>
-                            </div> 
+                            <input type="hidden" name="mkp_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value="{{$data->mkp_id}}"readonly>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label"style="font-weight: bold;">Nama</label>
                                 <input type="text" name="mkp_nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"value="{{$data->mkp_nama}}">
