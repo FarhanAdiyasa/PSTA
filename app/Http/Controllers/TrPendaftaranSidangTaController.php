@@ -59,10 +59,8 @@ class TrPendaftaranSidangTaController extends Controller
     }
     public function downloadUndangan($file)
     {
-        $templatePath = 'file';
-    
-        if (Storage::disk('public')->exists($templatePath)) {
-            return response()->download(storage_path('app/public/uploads/' . $templatePath), $file);
+        if (Storage::disk('public')->exists('uploads/'.$file)) {
+            return response()->download(storage_path('app/public/uploads/' . $file), $file);
         } else {
             return response()->json(['error' => 'Template not found.'], 404);
         }

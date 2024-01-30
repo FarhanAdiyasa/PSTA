@@ -178,15 +178,13 @@
                             <br>
                             @if($pdft->pdft_jenissidang)
                                 <div class="d-grid gap-2 d-md-block">
-                                    @if ($pdft->pdft_undangan)
-                                    <a href="{{route('download.undangan', ['file'=>$pdft->pdft_undangan])}}">
+                                       <a href="{{route('download.penilaian')}}">
                                         <button class="btn btn-primary" type="button">Form Penilaian</button>
                                         </a> 
-                                    @endif
-                                     
-                                        <a href="{{route('generate.pdf.undangan', ["idTr"=>$pdft->pdft_id])}}">
+                                        @if ($pdft->pdft_undangan)
+                                        <a href="{{route('download.undangan', ['file'=>$pdft->pdft_undangan])}}">
                                             <button class="btn btn-primary" type="button">Unduh Undangan</button>
-                                        </a>
+                                        @endif
                                 </div>
                             @endif
                         </form>
