@@ -14,11 +14,6 @@
             <div class="col-6 d-flex align-items-center">
                 <a href="/Pembimbing/Create" class="btn-lg" style="padding: 5px 5px; font-size: 13px; background-color: #1F6A00; color: white;">+Tambah Pembimbing</a>
             </div>
-            <div class="col-6 d-flex align-items-center ml-auto">
-                <form action="/Pembimbing" method="GET" class="d-flex">
-                    <input type="search" name="search" class="form-control" placeholder="Cari id..." aria-label="Search" aria-describedby="basic-addon2">
-                </form>
-            </div>
         </div>
 
         @if($message = Session::get('success'))

@@ -60,7 +60,7 @@ class mspenggunaController extends Controller
             }
         } 
     
-        return redirect('login')->with('error', 'Username dan Password salah');
+        return redirect('/')->with('error', 'Username atau Password salah');
     }
     public function register(Request $request)
     {

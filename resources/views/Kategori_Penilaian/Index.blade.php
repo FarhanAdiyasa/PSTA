@@ -14,11 +14,6 @@
         <div class="row mb-3">
             <div class="col-12 d-flex align-items-center">
                 <a href="kategori_penilaian/Create" class="btn" style="background-color:#0059ab; color:white; font-size: 10px;">+Tambah Data</a>
-                <div class="col-6 d-flex align-items-center ml-auto">
-                <form action="/kategori_penilaian" method="GET" class="d-flex">
-                    <input type="search" name="search" class="form-control" placeholder="Cari Nama..." aria-label="Search" aria-describedby="basic-addon2">
-                </form>
-            </div>
             </div>
         </div>
         </div>
