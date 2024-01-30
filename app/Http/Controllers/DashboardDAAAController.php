@@ -19,5 +19,24 @@ class DashboardDAAAController extends Controller
         $title = 'Dashboard Undangan';
         return view ('Dashboard_DAAA.undangan', compact('title', 'data'));
     }
-    //
+
+    public function UndanganStore(Request $request)
+    { 
+        $pdft = TrPendaftaranSidangTa::findorfail($request->pdft_id);
+        if ($request->hasFile('pdft_undangan')) {
+            $filename = $request->pdft_undangan->getClientOriginalName();
+            $filenameToStore = time() . '_' . $filename;
+            $request->pdft_undangan->storeAs('public/uploads', $filenameToStore);
+            $pdft->pdft_undangan = $filenameToStore;
+           
+            $pdft->save();
+            return redirect()->route('DashboardUndangan.Undangan')->with('success', 'Data successfully submitted.');
+        }else{
+            return redirect()->back()->with('error', 'An error occurred while processing your request.');
+        }
+     
+       
+        
+    }
+
 }

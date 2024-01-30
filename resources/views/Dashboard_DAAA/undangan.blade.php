@@ -48,7 +48,7 @@
                 <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $formattedDate}} Disetujui!</td>
                 <td class="align-middle text-center">Menunggu Penilaian</td>
                 <td  class="align-middle text-center">
-                    <a href="{{ route('SidangKoor.undang', ['id' => $row->pdft_id]) }}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                    <a href="{{route('generate.pdf.undangan', ["idTr"=>$row->pdft_id])}}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
                         <i class="fa-solid fa-download"></i>
                     </a>
                     <button type="button" class="btn btn-info center" data-bs-toggle="modal" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing" data-bs-target="#modalInputLinkSidang"><i class="fa-solid fa-upload"></i></button>
@@ -61,12 +61,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form untuk input link sidang -->
-                                    <form action="{{route('Sidang.verifikasi.store',  ['id' => $row->pdft_id])}}" method="POST">
+                                    <form action="{{route('DashboardUndangan.Upload')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" value="{{$row->pdft_id}}">
+                                        <input type="hidden" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" value="{{$row->pdft_id}}" name="pdft_id">
                                         <div class="mb-3">
                                             <label for="pdft_link" class="form-label">Undangan Sidang</label>
-                                            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Undangan" required>
+                                            <input type="file" name="pdft_undangan" class="form-control" id="pdft_undangan" accept=".pdf">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Unggah</button>
                                     </form>

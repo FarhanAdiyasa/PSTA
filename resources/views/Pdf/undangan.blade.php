@@ -375,10 +375,10 @@
         Hormat Kami,
         </p>
         <div class="">
-          <img width="150" height="80" src="{{ public_path('storage/ttd_kaprod_tpm.jpg') }}"/>
           <p
           class="s1"
           style="
+          margin-top: 7rem;
             padding-top: 2pt;
             padding-left: 5pt;
             text-indent: 0pt;
@@ -404,7 +404,7 @@
         </p>
         </div>
     </div>
-    <div class="" style="margin-bottom:0px;margin-top:9rem">
+    <div class="" style="margin-bottom:0px;margin-top:7.2rem">
       <img width="794" height="120" src="{{ public_path('storage/footer.jpg') }}"/>
     </div>
     
@@ -671,10 +671,10 @@
         Hormat Kami,
         </p>
         <div class="">
-          <img width="150" height="80" src="{{ public_path('storage/ttd_kaprod_tpm.jpg') }}"/>
           <p
           class="s1"
           style="
+          margin-top: 7rem;
             padding-top: 2pt;
             padding-left: 5pt;
             text-indent: 0pt;
@@ -700,7 +700,7 @@
         </p>
         </div>
     </div>
-    <div class="" style="margin-bottom:0px;margin-top:9rem">
+    <div class="" style="margin-bottom:0px;margin-top:7.2rem">
       <img width="794" height="120" src="{{ public_path('storage/footer.jpg') }}"/>
     </div>
     @endif
@@ -820,9 +820,10 @@
     @if ($pdft->pnj->pbn_jenis == "Akademik")
         Dosen
     @else
-        Dosen Industri
+       {{$pdft->pnj->pbn_jabatan}}
     @endif
     </p>
+    @if ($pdft->pnj->pbn_jenis == "Akademik")
       <p
       class="s1"
       style="
@@ -847,6 +848,32 @@
     >
     Cibatu, Cikarang Selatan, Kab. Bekasi, Jawa Barat, 17530
     </p>
+    @else
+      <p
+      class="s1"
+      style="
+        padding-top: 2pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 108%;
+        text-align: left;
+      "
+    >
+   {{$pdft->pdft_perusahaan}}
+    </p>
+      <p
+      class="s1"
+      style="
+        padding-top: 2pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 108%;
+        text-align: left;
+      "
+    >
+    Di tempat
+    </p>
+    @endif
       <p
       class="s1"
       style="
@@ -966,11 +993,11 @@
         Hormat Kami,
         </p>
         <div class="">
-          <img width="150" height="80" src="{{ public_path('storage/ttd_kaprod_tpm.jpg') }}"/>
           <p
           class="s1"
           style="
             padding-top: 2pt;
+            margin-top: 7rem;
             padding-left: 5pt;
             text-indent: 0pt;
             line-height: 108%;
@@ -995,7 +1022,7 @@
         </p>
         </div>
     </div>
-    <div class="" style="margin-bottom:0px;margin-top:9rem">
+    <div class="" style="margin-bottom:0px;margin-top:7.2rem">
       <img width="794" height="120" src="{{ public_path('storage/footer.jpg') }}"/>
     </div>
     @endif
@@ -1261,10 +1288,11 @@
         Hormat Kami,
         </p>
         <div class="">
-          <img width="150" height="80" src="{{ public_path('storage/ttd_kaprod_tpm.jpg') }}"/>
+          
           <p
           class="s1"
           style="
+          margin-top: 7rem;
             padding-top: 2pt;
             padding-left: 5pt;
             text-indent: 0pt;
@@ -1290,7 +1318,7 @@
         </p>
         </div>
     </div>
-    <div class="" style="margin-bottom:0px;margin-top:9rem">
+    <div class="" style="margin-bottom:0px;margin-top:7.2rem">
       <img width="794" height="120" src="{{ public_path('storage/footer.jpg') }}"/>
     </div>
     @endif
@@ -1556,10 +1584,10 @@
         Hormat Kami,
         </p>
         <div class="">
-          <img width="150" height="80" src="{{ public_path('storage/ttd_kaprod_tpm.jpg') }}"/>
           <p
           class="s1"
           style="
+          margin-top: 7rem;
             padding-top: 2pt;
             padding-left: 5pt;
             text-indent: 0pt;
@@ -1585,7 +1613,7 @@
         </p>
         </div>
     </div>
-    <div class="" style="margin-bottom:0px;margin-top:9rem">
+    <div class="" style="margin-bottom:0px;margin-top:7.2rem">
       <img width="794" height="120" src="{{ public_path('storage/footer.jpg') }}"/>
     </div>
     @endif

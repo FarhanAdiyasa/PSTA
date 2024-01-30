@@ -72,6 +72,7 @@ class TrPendaftaranSidangTa extends Model
         'pdft_penguji3',
         'pdft_pembimbing1',
         'pdft_pembimbing2',
+        'pdft_undangan',
     ];
 
     protected $casts = [

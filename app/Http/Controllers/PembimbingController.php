@@ -92,7 +92,7 @@ class PembimbingController extends Controller
         
         $selectedUsername = mspengguna::where(['png_username' => $data->png_username])->pluck('png_username')->first();
         $title = 'Kategori penilaian/Edit';
-        return view('DashboardKoordinatorTA.Pembimbing.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames'));
+        return view('DashboardKoordinatorTA.Pembimbing.Edit', compact('data', 'title', 'pengujiUsernames', 'usernames', 'selectedUsername'));
     }
 
     public function updateDataPebimbingPengguna(Request $request, $pbn_id)

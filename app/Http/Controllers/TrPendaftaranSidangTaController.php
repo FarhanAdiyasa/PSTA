@@ -57,6 +57,16 @@ class TrPendaftaranSidangTaController extends Controller
             return response()->json(['error' => 'Template not found.'], 404);
         }
     }
+    public function downloadUndangan($file)
+    {
+        $templatePath = 'file';
+    
+        if (Storage::disk('public')->exists($templatePath)) {
+            return response()->download(storage_path('app/public/uploads/' . $templatePath), $file);
+        } else {
+            return response()->json(['error' => 'Template not found.'], 404);
+        }
+    }
     public function generatePdfNilai($idTr, $idUsn)
     {
         $nilai = dtlnilaikategori::where(['pdft_id'=>$idTr, 'png_username'=>$idUsn])->get();

@@ -37,6 +37,7 @@ Route::get('/DashboardHasil_Sidang', [DashboardMahasiswaController::class, 'Hasi
 //DAA
 Route::get('/DashboardDAAA', [DashboardDAAAController::class, 'index'])->name('DashboardDAAA.index');
 Route::get('/DashboardUndangan', [DashboardDAAAController::class, 'Undangan'])->name('DashboardUndangan.Undangan');
+Route::post('/DashboardUpload', [DashboardDAAAController::class, 'UndanganStore'])->name('DashboardUndangan.Upload');
 //Pebimbing
 Route::get('/DashboardPebimbing', [DashboardPebimbingController::class, 'index'])->name('DashboardPebimbing.index');
 Route::get('/Dashboardhasilsidang', [DashboardPebimbingController::class, 'hasilSidang'])->name('Dashboardhasilsidang.hasilSidang');
@@ -131,5 +132,6 @@ Route::get('/generate-pdf/{idTr}/{idUsn}', [TrPendaftaranSidangTaController::cla
 Route::get('/generate-pdf-ba/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfBap'])->name('generate.pdf.ba'); 
 Route::get('/generate-pdf-undangan/{idTr}', [TrPendaftaranSidangTaController::class, 'generatePdfUndangan'])->name('generate.pdf.undangan'); 
 
+Route::get('/undangan/{file}', [TrPendaftaranSidangTaController::class, 'downloadUndangan'])->name('download.undangan'); 
 
 Route::get('/template/penilaian', [TrPendaftaranSidangTaController::class, 'downloadForm'])->name('download.penilaian');
