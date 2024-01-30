@@ -52,7 +52,7 @@ class TrPendaftaranSidangTaController extends Controller
         $templatePath = 'penilaian.pdf';
     
         if (Storage::disk('public')->exists($templatePath)) {
-            return response()->download(storage_path('app/public/' . $templatePath), 'Template Penilaian.pdf');
+            return response()->download(storage_path('app/public/' . $templatePath), 'Template Penilaian.pdf');//Nama
         } else {
             return response()->json(['error' => 'Template not found.'], 404);
         }
@@ -60,7 +60,7 @@ class TrPendaftaranSidangTaController extends Controller
     public function downloadUndangan($file)
     {
         if (Storage::disk('public')->exists('uploads/'.$file)) {
-            return response()->download(storage_path('app/public/uploads/' . $file), $file);
+            return response()->download(storage_path('app/public/uploads/' . $file), $file);//Nama
         } else {
             return response()->json(['error' => 'Template not found.'], 404);
         }
@@ -70,15 +70,21 @@ class TrPendaftaranSidangTaController extends Controller
         $nilai = dtlnilaikategori::where(['pdft_id'=>$idTr, 'png_username'=>$idUsn])->get();
         $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $idTr])->first();
         $pdf = Pdf::loadView('Pdf.penilaian', compact(['nilai', 'pdft']));
-        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$idUsn.'.pdf');
+        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$idUsn.'.pdf');//Nama
     }
     public function generatePdfBap($idTr)
     {
         $result = DB::select('CALL sp_total_nilai(?)', array($idTr));
-        dd($result);
         $pdft = TrPendaftaranSidangTa::where(["pdft_id" => $idTr])->first();
-        $pdf = Pdf::loadView('Pdf.berita_acara', compact(['pdft']));
-        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$pdft->mhs_username.'.pdf');
+        $penguji = 0;
+        if($pdft->pdft_penguji2){
+            $penguji++;
+        }
+        if($pdft->pdft_penguji3){
+            $penguji++;
+        }
+        $pdf = Pdf::loadView('Pdf.berita_acara', compact(['pdft', 'penguji', 'result']));
+        return $pdf->download('PS_'.$pdft->mahasiswa->mhs_nama.'_'.$pdft->mhs_username.'.pdf');//Nama
     }
     public function undang(string $id) {
         $pdft = TrPendaftaranSidangTa::findorFail($id);
@@ -96,7 +102,7 @@ class TrPendaftaranSidangTaController extends Controller
         $pdf = Pdf::loadView('Pdf.undangan', compact(['pdft', 'gr']));
         $m->addRaw($pdf->output());
         $pdf2 = PDF::loadView('Pdf.undanganLandscape', compact(['pdft']))->setPaper('a4', 'landscape');
-        $nama_file = 'all.pdf';
+        $nama_file = $pdft->pdft_id.'_Undangan.pdf';//Nama
         $m->addRaw($pdf2->output());
         return response($m->merge())
                 ->withHeaders([
@@ -106,7 +112,15 @@ class TrPendaftaranSidangTaController extends Controller
                 ]);
        
     }
-    
+    public function downloadTemplate($file)
+    {
+        if (Storage::disk('public')->exists('uploads/' . $file)) {
+            return response()->download(storage_path('app/public/uploads/' . $file), $file);
+        } else {
+            return response()->json(['error' => 'Template not found.'], 404);
+        }
+    }
+
     
     public function verifikasi($id)
     {   
@@ -342,7 +356,9 @@ class TrPendaftaranSidangTaController extends Controller
         $penguji = TrPendaftaranSidangTa::where(['pdft_id' => $id])
                                         ->first(['pdft_penguji1', 'pdft_penguji2', 'pdft_penguji3']);
 
-        $penilaianPenguji1 = $penilaianPenguji2 = $penilaianPenguji3 = [];
+        $penilaianPenguji1 = [];
+        $penilaianPenguji2 = [];
+        $penilaianPenguji3 = [];
 
         if ($penguji !== null) {
             foreach (range(1, 3) as $index) {
@@ -350,14 +366,12 @@ class TrPendaftaranSidangTaController extends Controller
 
                 if ($penguji->$pengujiField !== null) {
                     $penilaianField = "penilaianPenguji{$index}";
-
                     $$penilaianField = dtlnilaikategori::where('png_username', $penguji->$pengujiField)
                         ->where('pdft_id', $id)
                         ->get();
                 }
             }
         }
-
         return view('Dashboard_Mahasiswa.Hasil_sidang.detail', compact('title', 'pdft', 'mahasiswa', 'penilaianPenguji1', 'penilaianPenguji2', 'penilaianPenguji3'));
     }
 
@@ -405,8 +419,15 @@ class TrPendaftaranSidangTaController extends Controller
             // Divide the sum by 3 and convert to integer
             $roundedSum = floor($sum / 3);
             // Output the result
+            $lulus = "lulus";
+            if($roundedSum >= 20){
+                $lulus = "Lulus";
+            }else if($roundedSum >=10 && $roundedSum <20){
+                $lulus = "Revisi";
+            }else{$lulus = " Tidak Lulus";
+            }
 
-            DB::update('UPDATE `sidangta_trpendaftaransidangta` SET pdft_totalnilai =  pdft_totalnilai + ? WHERE pdft_id = ?', [$roundedSum, $id]);
+            DB::update('UPDATE `sidangta_trpendaftaransidangta` SET pdft_totalnilai =  ?, pdf_statuskelulusan = ? WHERE pdft_id = ?', [$roundedSum, $lulus, $id]);
 
             
 

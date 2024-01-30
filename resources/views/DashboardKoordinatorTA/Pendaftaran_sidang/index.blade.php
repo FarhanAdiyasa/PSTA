@@ -56,7 +56,7 @@
                         </a>
                     </td>
                 </tr>
-                @elseif($row->pdft_statusverifikasidata == "True")
+                @elseif($row->pdft_statusverifikasidata == "True" && !$row->pdf_statuskelulusan)
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
                     <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
@@ -67,7 +67,7 @@
                         </a>
                     </td>
                 </tr>
-                @elseif($row->pdft_statusverifikasidata != "null")
+                @elseif($row->pdf_statuskelulusan)
                 <tr>
                     <th  class="align-middle text-center"scope="row">{{ $index + $data->firstItem() }}</th>
                     <td class="align-middle text-center">Pengajuan Pendaftaran {{$row->mhs_nim}} Sidang Pada {{ $row->pdft_tanggaldibuat}} Disetujui!</td>
@@ -86,7 +86,7 @@
                         $formattedDate = \Carbon\Carbon::parse($row->pdft_tanggaldibuat)->format('l, d F Y');
                     @endphp
                     <td class="align-middle text-center">Pengajuan Pendaftaran Sidang Pada {{ $formattedDate}} Disetujui!</td>
-                    <td class="align-middle text-center">Menunggu Persetujuan Koordinator</td>
+                    <td class="align-middle text-center">Menunggu Verifikasi Koordinator</td>
                     <td  class="align-middle text-center">
                         <a href="{{route('Sidang.verifikasi', ['id' => $row->pdft_id])}}" class="btn btn-info center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
                             <i class="fa-solid fa-square-check"></i>

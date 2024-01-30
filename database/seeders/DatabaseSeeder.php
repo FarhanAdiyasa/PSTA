@@ -18,14 +18,48 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Create 10 sample data entries
-        for ($i = 1; $i <= 10; $i++) {
-            mspengguna::create([
-                'png_username' => 'user' . $i+10, // You can adjust the username as needed
-                'png_password' => Hash::make('password'), // You can adjust the default password as needed
-                'png_role' => mspengguna::getValidRoles()[array_rand(mspengguna::getValidRoles())], // Randomly select a role
-            ]);
-            
+        $penggunaData = [
+            [
+                'png_username' => 'Anisa Budiarti',
+                'png_password' => Hash::make('anisa'),
+                'png_role' => 'Koordinator TA',
+            ],
+            [
+                'png_username' => 'Raden Rara Kartika',
+                'png_password' => Hash::make('rara'),
+                'png_role' => 'Pembimbing',
+            ],
+            [
+                'png_username' => 'Sisia Dika Ariyanto',
+                'png_password' => Hash::make('sisia'),
+                'png_role' => 'Penguji',
+            ],
+            [
+                'png_username' => 'DAAA',
+                'png_password' => Hash::make('daaa'),
+                'png_role' => 'Penguji',
+            ],
+            [
+                'png_username' => 'Steve Kurniawan',
+                'png_password' => Hash::make('steve'),
+                'png_role' => 'Kepala Prodi',
+            ],
+            [
+                'png_username' => 'Mohammad Winarso',
+                'png_password' => Hash::make('winarso'),
+                'png_role' => 'Pembimbing',
+            ],
+            [
+                'png_username' => 'Yohanes B. Cahyo',
+                'png_password' => Hash::make('yohanes'),
+                'png_role' => 'Penguji',
+            ],
+            // Add more data if needed
+        ];
+    
+        // Insert data into database
+        foreach ($penggunaData as $data) {
+            mspengguna::create($data);
         }
     }
     // public function run()

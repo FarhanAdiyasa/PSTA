@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h5 class="card-header text-center white-text py-4 mb-4" style="background-color: #1F6A00;">
-                        <strong class="text-white">Tambah Data Pembimbing dan Penguji</strong>
+                        <strong class="text-white">Tambah Data Pembimbing</strong>
                     </h5>
 
                     <div class="card-body">

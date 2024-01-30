@@ -9,7 +9,7 @@
 
         <div class="row mb-3">
             <div class="col-6 d-flex align-items-center">
-                <a href="register" class="btn btn-primary" style="padding: 5px 5px; font-size: 13px;">+Tambah Data</a>
+                <a href="register" class="btn-lg mt-3" style="font-size: 15px; background-color: #1F6A00; color: white;">+Tambah Data</a>
             </div>
             <div class="col-6 d-flex align-items-center ml-auto">
                 <form action="/dashboardKTamabah_tahun_ajaran" method="GET" class="d-flex">

@@ -366,7 +366,7 @@
                   text-align: left;
                 "
               >
-                  1. {{$pdft->pdft_pembimbing1}}
+                  1. {{$pdft->pbg->pbn_nama}}
               </p>
                 <br>
                 <p
@@ -379,7 +379,11 @@
                   margin-bottom: 0.3rem;
                 "
               >
-                  2. {{$pdft->pdft_pembimbing2}}
+                  2. 
+                  @if ($pdft->pdft_pembimbing)
+                  {{$pdft->pbg2->pbn_nama}}
+                  @endif
+                
             </p>
               </td>
             </tr>
@@ -895,7 +899,7 @@
                 line-height: 13pt;
                 text-align: left;
                 margin-left:2rem;
-                margin-top:0.5rem;"/>Lulus
+                margin-top:0.5rem;" @checked($pdft->pdf_statuskelulusan && $pdft->pdf_statuskelulusan == "Lulus")/>Lulus
           </li>
           <li>
             <input type="checkbox" style="
@@ -904,7 +908,7 @@
                 line-height: 13pt;
                 text-align: left;
                 margin-left:2rem;
-                margin-top:0.5rem;"/>Lulus dengan revisi
+                margin-top:0.5rem;" @checked($pdft->pdf_statuskelulusan && $pdft->pdf_statuskelulusan == "Rrevisi")/>Lulus dengan revisi
           </li>
           <li>
             <input type="checkbox" style="
@@ -913,7 +917,7 @@
                 line-height: 13pt;
                 text-align: left;
                 margin-left:2rem;
-                margin-top:0.5rem;"/>Tidak Lulus, mengulang ujian sidang
+                margin-top:0.5rem;" @checked($pdft->pdf_statuskelulusan && $pdft->pdf_statuskelulusan == "Tidak Lulus")/>Tidak Lulus, mengulang ujian sidang
           </li>
         </ul>
         <p style="text-indent: 0pt; text-align: left"><br /></p>

@@ -24,10 +24,13 @@
                             function generateAutomaticID($konvert = 'KNN')
                             {
                                 // Menggunakan Eloquent untuk menghitung jumlah baris
-                                $jumlahBaris = mskategoripenilaian::count();
-
-                                // Menambahkannya dengan 1
-                                $hasilAkhir = $jumlahBaris + 1;
+                                $jumlahBaris = mskategoripenilaian::latest()->first('mkp_id');
+                                
+                                // Memotong tiga karakter pertama
+                                $potongDepan = substr($jumlahBaris, 3); 
+                                                            
+                                // Mengambil tiga karakter terakhir, mengonversi menjadi integer, menambahkan 1
+                                $hasilAkhir = intval(substr($potongDepan, -3)) + 1;
 
                                 // Menggunakan sprintf untuk memformat ID
                                 $id = sprintf('%s%03d', $konvert, $hasilAkhir);

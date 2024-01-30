@@ -26,12 +26,14 @@ class mspenggunaController extends Controller
     {
         $mahasiswa = msmahasiswa::where('mhs_username', $request->username)->first();
         if ($mahasiswa && Hash::check($request->katasandi, $mahasiswa->mhs_password)) {
+            
             session()->put('png_username', $request->username);
             $credentials = [
                 'mhs_username' => $request->username,
                 'password' => $request->katasandi,
             ];
             if (Auth::guard('mahasiswa')->attempt($credentials)) {
+                
                 return redirect()->route('DashboardMahasiswa.index');
             }
         } 
@@ -60,7 +62,7 @@ class mspenggunaController extends Controller
             }
         } 
     
-        return redirect('/')->with('error', 'Username atau Password salah');
+        return redirect('/')->with('error', 'Nama Akun atau Password salah');
     }
     public function register(Request $request)
     {
@@ -104,7 +106,8 @@ class mspenggunaController extends Controller
     {
         if (Auth::guard('mahasiswa')->check()) {
             Auth::guard('mahasiswa')->logout();
-        } elseif (Auth::guard('pengguna')->check()) {
+        } 
+        if (Auth::guard('pengguna')->check()) {
             Auth::guard('pengguna')->logout();
         } 
         return redirect()->route('login');

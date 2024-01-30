@@ -12,7 +12,6 @@
             <div class="text-center mb-4">
                 <h4>Penilaian Sidang TA</h4>
             </div>
-            
             @if($message = Session::get('success'))
         <div class="alert alert-success" role="alert">
             {{ $message }}
@@ -25,30 +24,89 @@
             <thead style="background-color: #1F6A00; color: white;">
                 <tr>
                     <th class="align-middle text-center">No.</th>
-                    <th class="align-middle text-center">Pendaftaran Sidang</th>
                     <th class="align-middle text-center">Nama Mahasiswa</th>
+                    <th class="align-middle text-center">Judul Tugas Akhir</th>
+                    <th class="align-middle text-center">Status</th>
                     <th class="align-middle text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php
-                $no = 1;
+                    use App\Models\TrPendaftaranSidangTa;
+                        $user = session()->get('png_username');
+                        $no = 1;
                 @endphp
                 @foreach ($data as $item)
-                <tr style="font-weight: 100">
-                    <th class="align-middle text-center"> {{$no}}</th>
-                    <th class="align-middle text-center"> {{$item->pdft_id}}</th>
-                    <th class="align-middle text-center"> {{$item->mhs_nama}} </th>
-                    <th class="align-middle text-center">
-                        @if($item->pdft_totalnilai == null)
-                            <a href="/PenilaianSidang/{{ $item->pdft_id }}/nilai" class="btn btn-success center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
-                                <i class="fas fa-edit"></i> Penilaian
-                            </a>
-                        @else 
-                            <span class="badge bg-success">Sudah Dinilai</span>
-                        @endif
-                    </th>
-                </tr>
+                    @if(auth('pengguna')->user()->png_role == "Pembimbing" && ($user = $item->pdft_pembimbing1 || $user = $item->pdft_pembimbing2))
+                    @if($item->pdf_statuskelulusan != NULL && $item->pdft_statusverifikasidata == True)
+                        <tr style="font-weight: 100">
+                            <th class="align-middle text-center"> {{$no}}</th>
+                            <th class="align-middle text-center"> {{$item->mhs_nama}}</th>
+                            <th class="align-middle text-center"> {{$item->pdft_judultugasakhir}} </th>
+                            <th class="align-middle text-center"> Sudah dinilai ({{$item->pdf_statuskelulusan}}) </th>
+                            <th class="align-middle text-center">
+                                @if($item->pdft_totalnilai != 0)
+                                    <a href="{{route('generate.pdf.ba', ['idTr'=> $item->pdft_id])}}" class="btn btn-success center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                                        <i class="fas fa-edit"></i> Unduh BAP
+                                    </a>
+                                @endif
+                            </th>
+                        </tr>
+                    @endif
+                    @elseif(auth('pengguna')->user()->png_role == "Penguji" && ($user = $item->pdft_penguji1 || $user = $item->pdft_penguji2))
+                    @if($item->pdft_totalnilai != 0 && $item->pdft_statusverifikasidata == "True")
+                        <tr style="font-weight: 100">
+                            <th class="align-middle text-center"> {{$no}}</th>
+                            <th class="align-middle text-center"> {{$item->mhs_nama}}</th>
+                            <th class="align-middle text-center"> {{$item->pdft_judultugasakhir}} </th>
+                            <th class="align-middle text-center"> Sudah dinilai ({{$item->pdf_statuskelulusan}}) </th>
+                            <th class="align-middle text-center">
+                                @if($item->pdft_totalnilai == null)
+                                    <a href="/PenilaianSidang/{{ $item->pdft_id }}/nilai" class="btn btn-success center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                                        <i class="fas fa-edit"></i> Penilaian
+                                    </a>
+                                @else 
+                                    <span class="badge bg-success">Sudah Dinilai</span>
+                                @endif
+                            </th>
+                        </tr>
+                    @else
+                        <tr style="font-weight: 100">
+                            <th class="align-middle text-center"> {{$no}}</th>
+                            <th class="align-middle text-center"> {{$item->mhs_nama}}</th>
+                            <th class="align-middle text-center"> {{$item->pdft_judultugasakhir}} </th>
+                            <th class="align-middle text-center"> Sudah Diverifikasi </th>
+                            <th class="align-middle text-center">
+                                @if($item->pdft_totalnilai == null)
+                                    <a href="/PenilaianSidang/{{ $item->pdft_id }}/nilai" class="btn btn-success center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                                        <i class="fas fa-edit"></i> Penilaian
+                                    </a>
+                                @else 
+                                    <span class="badge bg-success">Sudah Dinilai</span>
+                                @endif
+                            </th>
+                        </tr>
+                    @endif
+                    {{-- @else
+                    <tr style="font-weight: 100">
+                        <th class="align-middle text-center"> {{$no}}</th>
+                        <th class="align-middle text-center"> {{$item->mhs_nama}}</th>
+                        <th class="align-middle text-center"> {{$item->pdft_judultugasakhir}} </th>
+                        <th class="align-middle text-center"> Sudah dinilai ({{$item->pdf_statuskelulusan}}) </th>
+                        <th class="align-middle text-center">
+                            @if($item->pdft_totalnilai == null)
+                                <a href="/PenilaianSidang/{{ $item->pdft_id }}/nilai" class="btn btn-success center" style="padding: 5px 5px; font-size: 10px;"name="Edit.Pembimbing">
+                                    <i class="fas fa-edit"></i> Penilaian
+                                </a>
+                            @else 
+                                <span class="badge bg-success">Sudah Dinilai</span>
+                            @endif
+                        </th>
+                    </tr> --}}
+                    @endif
+                @php
+                    $no++;
+                @endphp
                 @endforeach
             </tbody>
         </table>

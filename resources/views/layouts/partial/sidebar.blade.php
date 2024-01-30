@@ -77,6 +77,14 @@
                     <a href='{{route('Penilaian.sidang')}}' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
                         <i class='fa fa-file-alt fa-lg fa-pull-left'></i>Penilaian Sidang
                     </a>
+                    @elseif  (auth('pengguna')->user()->png_role == "Pembimbing")
+       
+                    <a href='{{route('DashboardPebimbing.index')}}' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
+                        <i class='fa fa-home fa-lg fa-pull-left'></i>Dashboard
+                    </a>
+                    <a href='{{route('Penilaian.sidang')}}' class='list-group-item list-group-item-action' style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'>
+                        <i class='fa fa-file-alt fa-lg fa-pull-left'></i>Penilaian Sidang
+                    </a>
                     @endif
                 {{-- Mahasiswa --}}
                 @elseif (Auth::guard('mahasiswa')->check())

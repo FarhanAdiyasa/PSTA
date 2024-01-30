@@ -29,7 +29,16 @@ use App\Http\Controllers\DashboardKoordinatorTAController;
 
 Route::get('/', function () {
 });
+Route::get('/', [mspenggunaController::class, 'login'])->name('login'); 
+Route::get('/Akun/Logout',[mspenggunaController::class,'logout'])->name('actioLogout');
+Route::post('/loginproses', [mspenggunaController::class, 'loginproses'])->name('loginproses'); 
+Route::get('/register', [mspenggunaController::class, 'register'])->name('register'); 
+Route::post('/registeruser', [mspenggunaController::class, 'registeruser'])->name('registeruser');
+Route::get('/Indexregister', [mspenggunaController::class, 'Index_register'])->name('Indexregister.Index_register'); 
+Route::get('/delete_Pengguna/{png_username}', [mspenggunaController::class, 'delete_pengguna'])->name('delete_Pengguna.delete_pengguna');
+
 //Mahasiswa
+
 Route::get('/DashboardMahasiswa', [DashboardMahasiswaController::class, 'index'])->name('DashboardMahasiswa.index');
 Route::get('/DashboardPesyaratan_Pendaftaran', [DashboardMahasiswaController::class, 'Pesyaratan_Pendaftaran'])->name('DashboardPesyaratan_Pendaftaran.Pesyaratan_Pendaftaran');
 Route::get('/DashboardPendaftaran_Sidang', [DashboardMahasiswaController::class, 'Pendaftaran_Sidang'])->name('DashboardPendaftaran_Sidang.Pendaftaran_Sidang');
@@ -39,7 +48,7 @@ Route::get('/DashboardDAAA', [DashboardDAAAController::class, 'index'])->name('D
 Route::get('/DashboardUndangan', [DashboardDAAAController::class, 'Undangan'])->name('DashboardUndangan.Undangan');
 Route::post('/DashboardUpload', [DashboardDAAAController::class, 'UndanganStore'])->name('DashboardUndangan.Upload');
 //Pebimbing
-Route::get('/DashboardPebimbing', [DashboardPebimbingController::class, 'index'])->name('DashboardPebimbing.index');
+Route::get('/DashboardPembimbing', [DashboardPebimbingController::class, 'index'])->name('DashboardPebimbing.index');
 Route::get('/Dashboardhasilsidang', [DashboardPebimbingController::class, 'hasilSidang'])->name('Dashboardhasilsidang.hasilSidang');
 Route::get('/DashboardSidang_BAP_SIdang', [DashboardPebimbingController::class, 'Sidang_bap_ta'])->name('DashboardSidang_BAP_SIdang.Sidang_bap_ta');
 Route::get('/DashboardUndangansidang', [DashboardPebimbingController::class, 'Undangan_sidang'])->name('DashboardUndangansidang.Undangan_sidang');
@@ -91,13 +100,6 @@ Route::post('/Pembimbing/Insert', [PembimbingController::class, 'Insert'])->name
 Route::get('/Pembimbing/Edit/{pbn_id}', [PembimbingController::class, 'Edit'])->name('Pembimbing.Edit'); // Fixed the double slash
 Route::post('/Pembimbing/Update/{pbn_id}', [PembimbingController::class, 'updateDataPebimbingPengguna'])->name('Pembimbing.Update');
 Route::post('/Pembimbing/Delete/{pbn_id}', [PembimbingController::class, 'Delete'])->name('Pembimbing.Delete');
-Route::get('/', [mspenggunaController::class, 'login'])->name('login'); 
-Route::get('/Akun/Logout',[mspenggunaController::class,'logout'])->name('actioLogout');
-Route::post('/loginproses', [mspenggunaController::class, 'loginproses'])->name('loginproses'); 
-Route::get('/register', [mspenggunaController::class, 'register'])->name('register'); 
-Route::post('/registeruser', [mspenggunaController::class, 'registeruser'])->name('registeruser');
-Route::get('/Indexregister', [mspenggunaController::class, 'Index_register'])->name('Indexregister.Index_register'); 
-Route::get('/delete_Pengguna/{png_username}', [mspenggunaController::class, 'delete_pengguna'])->name('delete_Pengguna.delete_pengguna');
 
 
 Route::get('/PenilaianSidang', [TrPendaftaranSidangTaController::class, 'penilaian'])->name('Penilaian.sidang');

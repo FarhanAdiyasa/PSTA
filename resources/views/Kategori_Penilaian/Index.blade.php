@@ -13,7 +13,7 @@
         <div class="row">
         <div class="row mb-3">
             <div class="col-12 d-flex align-items-center">
-                <a href="kategori_penilaian/Create" class="btn" style="background-color:#0059ab; color:white; font-size: 10px;">+Tambah Data</a>
+                <a href="kategori_penilaian/Create" class="btn-lg mt-3" style="font-size: 15px; background-color: #1F6A00; color: white;">+Tambah Kategori Penilaian</a>
             </div>
         </div>
         </div>
@@ -24,8 +24,8 @@
         @endif
         </div>
 
-        <table id="Sidang_Tahun_ajaran" class="table datable" width="100%">
-            <thead>
+        <table id="Pebimbing_penguji" class="table datable" width="100%" >
+            <thead style="background-color: #1F6A00; color: white;">
                 <tr>
                     <th class="align-middle text-center">No.</th>
                     <th class="align-middle text-center">Nama</th>
@@ -84,8 +84,6 @@
                 }
             });
         });
-    </script>
-    <script>
         $(document).ready( function () {    
             $('#Pebimbing_penguji').DataTable();
         } );

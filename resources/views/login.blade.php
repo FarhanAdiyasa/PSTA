@@ -34,9 +34,6 @@
         </div>
     
 
-        <p class="mb-0">
-            <a href="/register" class="text-center">Pembuatan Akun</a>
-        </p>
        <br>
         <button type="submit" class="btn btn-primary">Masuk</button>
        
